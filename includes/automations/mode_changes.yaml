@@ -1,0 +1,371 @@
+- alias: 'Set theme at startup'
+  initial_state: 'on'
+  trigger:
+   - platform: homeassistant
+     event: start
+  action:
+    service: frontend.set_theme
+    data:
+      name: midnight
+
+- id: letsencrypt-renewal
+  alias: "Let's Encrypt Renewal"
+  trigger:
+  - platform: time
+    at: '00:00:00'
+  action:
+  - service: hassio.addon_restart
+    data:
+      addon: core_letsencrypt
+      
+###################
+# SCENE REACTIONS #
+###################
+- alias: 'Cabin Fireplace'
+  trigger:
+    - platform: event
+      event_type: call_service
+      event_data:
+        service_data:
+          entity_id: scene.cabin
+        domain: scene
+        service: turn_on
+  action:
+    - service: switch.turn_on
+      data:
+        entity_id: switch.lr_tv
+    - service: script.media_fire
+
+
+##########
+# GUESTS #
+##########
+- alias: "Guests Arrive"
+  trigger:
+    platform: state
+    entity_id: group.guests
+    from: 'not_home'
+    to: 'home'
+  action:
+  - service: input_boolean.turn_on
+    data:
+      entity_id: input_boolean.guest_mode
+
+- alias: "Guests Leave"
+  trigger:
+    platform: state
+    entity_id: group.guests
+    from: 'home'
+    to: 'not_home'
+  condition:
+    - condition: state
+      entity_id: group.guests
+      state: "not_home"
+  action:
+  - service: input_boolean.turn_off
+    data:
+      entity_id: input_boolean.guest_mode
+      
+- alias: "Set Home when guest mode"
+  trigger:
+    platform: state
+    entity_id: input_boolean.guest_mode
+    to: 'on'
+  condition:
+    condition: or
+    conditions:
+    - condition: state
+      entity_id: input_select.house_status
+      state: "Away"
+    - condition: state
+      entity_id: input_select.house_status
+      state: "Vacation"
+  action:
+  - service: input_select.select_option
+    data:
+      entity_id: input_select.house_status
+      option: "Home"
+
+- alias: "Set Away when no guest mode"
+  trigger:
+    platform: state
+    entity_id: input_boolean.guest_mode
+    to: 'off'
+  condition:
+    - condition: state
+      entity_id: group.household
+      state: 'not_home'
+  action:
+  - service: input_select.select_option
+    data:
+      entity_id: input_select.house_status
+      option: "Away"
+
+########################
+# PERSON STATE CHANGES #
+########################
+- alias: Mark person as just arrived
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.nic_presence
+      from: 'off'
+      to: 'on'
+    - platform: state
+      entity_id: binary_sensor.emma_presence
+      from: 'off'
+      to: 'on'
+  action:
+    - service: input_select.select_option
+      data_template:
+        entity_id: >
+          {% if trigger.entity_id == 'binary_sensor.nic_presence' %}
+            input_select.nic_status
+          {% else %}
+            input_select.emma_status
+          {% endif %}
+        option: Just Arrived
+
+- alias: Mark person as home
+  trigger:
+    - platform: state
+      entity_id: input_select.nic_status
+      to: 'Just Arrived'
+      for:
+        minutes: 10
+    - platform: state
+      entity_id: input_select.emma_status
+      to: 'Just Arrived'
+      for:
+        minutes: 10
+    - platform: state
+      entity_id: input_select.nic_status
+      from: 'Just Left'
+      to: 'Just Arrived'
+    - platform: state
+      entity_id: input_select.emma_status
+      from: 'Just Left'
+      to: 'Just Arrived'
+  action:
+    - service: input_select.select_option
+      data_template:
+        entity_id: >
+          {% if trigger.entity_id == 'input_select.nic_status' %}
+            input_select.nic_status
+          {% else %}
+            input_select.emma_status
+          {% endif %}
+        option: Home
+
+- alias: Mark person as just left
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.nic_presence
+      from: 'on'
+      to: 'off'
+    - platform: state
+      entity_id: binary_sensor.emma_presence
+      from: 'on'
+      to: 'off'
+  action:
+    - service: input_select.select_option
+      data_template:
+        entity_id: >
+          {% if trigger.entity_id == 'binary_sensor.nic_presence' %}
+            input_select.nic_status
+          {% else %}
+            input_select.emma_status
+          {% endif %}
+        option: Just Left
+
+- alias: Mark person as away
+  trigger:
+    - platform: state
+      entity_id: input_select.nic_status
+      to: 'Just Left'
+      for:
+        minutes: 10
+    - platform: state
+      entity_id: input_select.emma_status
+      to: 'Just Left'
+      for:
+        minutes: 10
+  action:
+    - service: input_select.select_option
+      data_template:
+        entity_id: >
+          {% if trigger.entity_id == 'input_select.nic_status' %}
+            input_select.nic_status
+          {% else %}
+            input_select.emma_status
+          {% endif %}
+        option: Away
+
+- alias: Mark person as extended away
+  trigger:
+    - platform: state
+      entity_id: input_select.nic_status
+      to: 'Away'
+      for:
+        hours: 24
+    - platform: state
+      entity_id: input_select.emma_status
+      to: 'Away'
+      for:
+        hours: 24
+  action:
+    - service: input_select.select_option
+      data_template:
+        entity_id: >
+          {% if trigger.entity_id == 'input_select.nic_status' %}
+            input_select.nic_status
+          {% else %}
+            input_select.emma_status
+          {% endif %}
+        option: Extended Away
+
+#######################
+# HOUSE STATE CHANGES #
+#######################
+- alias: "Mode Coming Home"
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.nic_presence, binary_sensor.emma_presence
+      from: 'off'
+      to: 'on'
+    - platform: state
+      entity_id: input_select.nic_status
+      to: 'Just Arrived'
+    - platform: state
+      entity_id: input_select.emma_status
+      to: 'Just Arrived'
+  condition:
+    condition: or
+    conditions:
+    - condition: state
+      entity_id: input_select.house_status
+      state: "Away"
+    - condition: state
+      entity_id: input_select.house_status
+      state: "Vacation"
+  action:
+  - service: input_select.select_option
+    data:
+      entity_id: input_select.house_status
+      option: "Home"
+
+- alias: "Mode Going Away"
+  trigger:
+    - platform: state
+      entity_id: input_select.nic_status
+      to: 'Away'
+    - platform: state
+      entity_id: input_select.emma_status
+      to: 'Away'
+  condition:
+    condition: and
+    conditions:
+    - condition: or
+      conditions:
+      - condition: state
+        entity_id: input_select.nic_status
+        state: 'Away'
+      - condition: state
+        entity_id: input_select.nic_status
+        state: 'Extended Away'
+    - condition: or
+      conditions:
+      - condition: state
+        entity_id: input_select.emma_status
+        state: 'Away'
+      - condition: state
+        entity_id: input_select.emma_status
+        state: 'Extended Away'
+  action:
+  - service: input_select.select_option
+    data:
+      entity_id: input_select.house_status
+      option: "Away"
+
+- alias: "Mode Going On Vacation"
+  trigger:
+    - platform: state
+      entity_id: input_select.nic_status
+      to: 'Extended Away'
+    - platform: state
+      entity_id: input_select.emma_status
+      to: 'Extended Away'
+  condition:
+    - condition: state
+      entity_id: input_select.nic_status
+      state: 'Extended Away'
+    - condition: state
+      entity_id: input_select.emma_status
+      state: 'Extended Away'
+  action:
+  - service: input_select.select_option
+    data:
+      entity_id: input_select.house_status
+      option: "Vacation"
+      
+- alias: "Mode Alarm Wakeup"
+  trigger:
+    - platform: numeric_state
+      entity_id: sensor.br_alarm1_remaining
+      below: 16
+      above: 14
+  action:
+    - service: input_select.select_option
+      data:
+        entity_id: input_select.house_status
+        option: "Home"
+        
+- alias: "Mode Alarm Sleep"
+  trigger:
+    - platform: numeric_state
+      entity_id: sensor.br_alarm1_remaining
+      below: 600
+      above: 16
+  action:
+    - service: input_select.select_option
+      data:
+        entity_id: input_select.house_status
+        option: "Asleep"
+
+#################
+# ALARM CHANGES #
+#################
+- alias: "Mode Sleep Time"
+  trigger:
+    platform: time_pattern
+    minutes: '/1'
+    seconds: 0
+  condition:
+    - condition: template
+      value_template: >-
+          {{ now().strftime("%H:%M") == states.sensor.sleep_time.state }}
+    - condition: state
+      entity_id: input_select.house_status
+      state: "Home"
+  action:
+  - service: input_select.select_option
+    data:
+      entity_id: input_select.house_status
+      option: "Asleep"
+
+- alias: "Mode Wake Time"
+  trigger:
+    platform: time_pattern
+    minutes: '/1'
+    seconds: 0
+  condition:
+    - condition: template
+      value_template: >-
+          {{ now().strftime("%H:%M") == states.sensor.wakeup_time.state }}
+    - condition: state
+      entity_id: input_select.house_status
+      state: "Asleep"
+  action:
+  - service: input_select.select_option
+    data:
+      entity_id: input_select.house_status
+      option: "Home"

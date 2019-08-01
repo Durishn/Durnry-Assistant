@@ -1,0 +1,114 @@
+media_fire:
+    alias: "Turn On Fireplace"
+    sequence:
+      - service: media_player.volume_set
+        data:
+          entity_id: media_player.chromecastultra6081
+          volume_level: 0.30
+      - service: media_extractor.play_media
+        data:
+          entity_id: media_player.chromecastultra6081
+          media_content_type: video/youtube
+          media_content_id: "https://www.youtube.com/watch?v=ZY3J3Y_OU0w"
+
+welcome:
+    alias: "Welcome Message"
+    sequence:
+      - delay: '00:00:10'
+      - service: media_player.volume_set
+        data:
+          entity_id: media_player.googlehome5702
+          volume_level: 0.50
+      - service: tts.google_say
+        entity_id: media_player.googlehome5702
+        data:
+          message: 'Welcome Home'
+          
+office_nfc:
+    alias: "Office NFC"
+    sequence:
+      - service: light.turn_on
+        data:
+          entity_id: light.office
+          
+light_flash:
+  alias: 'Light Flash'
+  sequence:
+    - service: light.turn_on
+      data:
+        entity_id: light.office
+        flash: short
+    - service: light.turn_on
+      data:
+        entity_id: light.bedroom
+        flash: short
+    - service: light.turn_on
+      data:
+        entity_id: light.living_room_2
+        flash: short
+    - delay:
+        seconds: 1
+    - service: light.turn_on
+      data:
+        entity_id: light.office
+        flash: short
+    - service: light.turn_on
+      data:
+        entity_id: light.bedroom
+        flash: short
+    - service: light.turn_on
+      data:
+        entity_id: light.living_room_2
+        flash: short
+    - delay:
+        seconds: 1
+    - service: light.turn_on
+      data:
+        entity_id: light.office
+        flash: short
+    - service: light.turn_on
+      data:
+        entity_id: light.bedroom
+        flash: short
+    - service: light.turn_on
+      data:
+        entity_id: light.living_room_2
+        flash: short
+        
+sunrise:
+  alias: 'Sunrise'
+  sequence:
+    - service: light.turn_on
+      data:
+        entity_id: light.bedroom
+        xy_color: [0.67,0.39]
+        brightness: 1
+    - delay:
+        seconds: 1
+    - service: light.turn_on
+      data:
+        entity_id: light.bedroom
+        xy_color: [0.65,0.41]
+        brightness: 85
+        transition: 300
+    - delay:
+        seconds: 300
+    - service: light.turn_on
+      data:
+        entity_id: light.bedroom
+        xy_color: [0.60,0.40]
+        brightness: 170
+        transition: 300
+    - delay:
+        seconds: 300
+    - service: light.turn_on
+      data:
+        entity_id: light.bedroom
+        xy_color: [0.48,0.40]
+        brightness: 255
+        transition: 300
+    - delay:
+        seconds: 300
+    - service: scene.turn_on
+      data:
+        entity_id: scene.bright

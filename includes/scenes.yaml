@@ -1,0 +1,144 @@
+#################
+# MASTER SCENES #
+#################
+- name: All Off
+  entities:
+    group.all_lights: false
+    switch.floorlamp: false
+    switch.stringlight: false
+    switch.lr_tv: false
+    media_player.living_room_tv: false
+    media_player.living_room: false
+    media_player.googlehome5702: false
+
+- name: Bright
+  entities:
+    light.living_room:
+      state: true
+      color_temp: 335
+      brightness: 255
+    light.bedroom:
+      state: true
+      color_temp: 335
+      brightness: 255
+    light.hue_white_lamp_3:
+      state: true
+      brightness: 255
+    light.hue_white_lamp_2:
+      state: true
+      brightness: 255
+    light.hue_white_lamp_1:
+      state: true
+      brightness: 255
+    switch.floorlamp: true
+    switch.stringlight: true
+    #??TELL GOOGLE TO PLAY INDIE ON ALL SPEAKERS
+
+- name: Warm
+  entities:
+    light.living_room:
+      state: true
+      color_temp: 370
+      brightness: 225
+    light.bedroom:
+      state: true
+      color_temp: 300
+      brightness: 245
+    light.hue_white_lamp_3:
+      state: true
+      brightness: 130
+    light.hue_white_lamp_2:
+      state: true
+      brightness: 215
+    light.hue_white_lamp_1:
+      state: true
+      brightness: 185
+    switch.floorlamp: true
+    switch.stringlight: true
+    #??TELL GOOGLE TO PLAY INDIE ON ALL SPEAKERS
+
+- name: Cabin
+  entities:
+    #AUTOMATION OCCURS HERE THAT CHECKS IF SCENE IS ENABLED AND TURNS ON FIREPLACE
+    light.living_room:
+      state: true
+      color_temp: 470
+      brightness: 200
+    light.bedroom:
+      state: true
+      color_temp: 380
+      brightness: 220
+    light.hue_white_lamp_3:
+      state: true
+      brightness: 130
+    light.hue_white_lamp_2:
+      state: true
+      brightness: 210
+    light.hue_white_lamp_1:
+      state: true
+      brightness: 140
+    switch.floorlamp: false
+    switch.stringlight: true
+    #??TELL GOOGLE TO PLAY CHILL ON ALL SPEAKERS
+
+- name: Movie
+  entities:
+    light.bedroom: false
+    light.living_room:
+      state: true
+      color_temp: 540
+      brightness: 90
+    light.hue_white_lamp_1: false
+    light.hue_white_lamp_2: false
+    light.hue_white_lamp_3: false
+    light.hue_white_lamp_4: false
+    switch.floorlamp: false
+    switch.stringlight: false
+    switch.lr_tv: true
+    
+- name: Social
+  entities:
+    light.living_room:
+      state: true
+      effect: colorloop
+      brightness: 200
+    light.bedroom:
+      state: true
+      color_temp: 300
+      brightness: 200
+    light.hue_white_lamp_3:
+      state: true
+      brightness: 140
+    light.hue_white_lamp_2:
+      state: true
+      brightness: 210
+    light.hue_white_lamp_1:
+      state: true
+      brightness: 170
+    switch.floorlamp: false
+    switch.stringlight: true
+    #??TELL GOOGLE TO PLAY TURN UP PLAYLIST
+
+- name: Bedmode
+  entities:
+    light.living_room:
+      state: false
+    light.bedroom:
+      state: true
+      color_temp: 380
+      brightness: 100
+    light.hue_white_lamp_4:
+      state: false
+    light.hue_white_lamp_3:
+      state: false
+    light.hue_white_lamp_2:
+      state: false
+    light.hue_white_lamp_1:
+      state: false
+    switch.floorlamp: false
+    switch.stringlight: false
+    switch.lr_tv: false
+    media_player.living_room_tv: false
+    media_player.living_room: false
+    media_player.googlehome5702: false
+    

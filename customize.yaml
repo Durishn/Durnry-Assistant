@@ -1,0 +1,16 @@
+##################
+# FRIENDLY NAMES #
+##################
+group.all_devices:
+  hidden: false 
+
+#Household
+sensor.nic_status:
+  entity_picture: http://graph.facebook.com/517848781/picture?type=normal
+sensor.emma_status:
+  entity_picture: http://graph.facebook.com/576184116/picture?type=normal
+
+sensor.wakeup_time:
+  icon: mdi:alarm
+sensor.sleep_time:
+  icon: mdi:sleep

@@ -1,0 +1,92 @@
+########################
+# HASSIO NOTIFICATIONS #
+########################
+- alias: 'Update Available Notifications'
+  initial_state: 'on'
+  trigger:
+    platform: state
+    entity_id: sensor.ha_upstream
+  action:
+    service: notify.notify
+    data:
+      message: 'An update for Home Assistant is available.'
+
+########################
+# MOBILE NOTIFICATIONS #
+########################
+- alias: "Notify Nic on Arrival"
+  trigger:
+    - platform: state
+      entity_id: input_select.house_status
+      to: 'Home'
+  condition: 
+    - condition: state
+      entity_id: input_select.nic_status
+      state: 'Away'
+  action:
+    - service: notify.nic_notify
+      data_template:
+        title: "Lawrence Assistant"
+        message: "Someone has come home!"
+        
+- alias: "Notify Nic on Motion if Away"
+  trigger:
+  - platform: state
+    entity_id: binary_sensor.office_occupancy
+    to: 'Detected'
+  - platform: state
+    entity_id: binary_sensor.office_occupancy
+    to: 'on'
+  - platform: state
+    entity_id: binary_sensor.bedroom_occupancy
+    to: 'Detected'
+  - platform: state
+    entity_id: binary_sensor.bedroom_occupancy
+    to: 'on'
+  condition: 
+    - condition: state
+      entity_id: input_select.house_status
+      state: 'Away'
+  action:
+    - service: notify.nic_notify
+      data_template:
+        title: "Lawrence Assistant"
+        message: "Theres motion in the house and noones home - check your cameras!"
+
+- alias: "Notify Low Temp"
+  trigger:
+    - platform: numeric_state
+      entity_id: sensor.living_room_temperature
+      below: 15
+  action:
+    - service: notify.nic_notify
+      data_template:
+        title: "Lawrence Assistant"
+        message: "Temperature is currently below 15!"
+        
+- alias: "Notify High Temp"
+  trigger:
+    - platform: numeric_state
+      entity_id: sensor.living_room_temperature
+      above: 26
+  action:
+    - service: notify.nic_notify
+      data_template:
+        title: "Lawrence Assistant"
+        message: "Temperature is currently above 26!"
+  
+##############
+# BROADCASTS #
+##############
+- alias: "Welcoming Message"
+  trigger:
+  - platform: state
+    entity_id: input_select.house_status
+    to: 'Home'
+    from: 'Away'
+  - platform: state
+    entity_id: input_select.house_status
+    to: 'Home'
+    from: 'Vacation'
+  action:
+    - service: script.welcome

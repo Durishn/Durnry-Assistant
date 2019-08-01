@@ -1,0 +1,152 @@
+###############
+# DATE & TIME #
+###############
+- platform: time_date
+  display_options:
+    - 'time'
+    - 'date'
+
+- platform: template
+  sensors:
+    local_time:
+      value_template: "{{as_timestamp(now()) | timestamp_custom('%-I:%M %p')}}"
+      entity_id: sensor.time
+    local_date:
+      value_template: "{{as_timestamp(now()) | timestamp_custom('%A %B %-d')}}"
+      entity_id: sensor.date
+    climate_combined:
+      value_template: "{{ state_attr('climate.living_room', 'target_temp_low') }}/{{ state_attr('climate.living_room', 'target_temp_high') }}"
+      entity_id: climate.living_room
+    
+###########
+# DarkSky #
+###########
+- platform: darksky
+  name: Guelph
+  api_key: !secret darksky_key
+  forecast:
+    - 0
+  monitored_conditions:
+    - icon
+    - minutely_summary
+    - temperature
+    - temperature_high
+    - temperature_low
+    - apparent_temperature
+    - precip_probability
+    - humidity
+    - visibility
+    
+################
+# GHOME ALARMS #
+################
+- platform: rest
+  name: LRHomeAlarms
+  json_attributes:
+    - timer
+    - alarm
+  resource: http://192.168.0.25:8008/setup/assistant/alarms
+  value_template: '{% if value_json.alarm[0] is defined %}{{ value_json.alarm[0].id }}{% endif %}'
+  force_update: true
+- platform: template
+  sensors:
+    lr_timer1_remaining:
+      value_template: '{% if states.sensor.lrhomealarms.attributes.timer[0] is defined %}{{ ((states.sensor.lrhomealarms.attributes.timer[0].fire_time + states.sensor.lrhomealarms.attributes.timer[0].original_duration) / 1000) - as_timestamp(now()) | int }}{% endif %}'
+      unit_of_measurement: s
+      entity_id: sensor.lrhomealarms
+    lr_timer1_end_time:
+      value_template: '{% if states.sensor.lrhomealarms.attributes.timer[0] is defined %}{{ ((states.sensor.lrhomealarms.attributes.timer[0].fire_time + states.sensor.lrhomealarms.attributes.timer[0].original_duration) / 1000) | int }}{% endif %}'
+      entity_id: sensor.lrhomealarms
+    lr_alarm1_time:
+      value_template: "{% if states.sensor.lrhomealarms.attributes.alarm[0] is defined %}{{ states.sensor.lrhomealarms.attributes.alarm[0].time_pattern | regex_replace('..hour..|,|.minute.|..second.....') }}{% endif %}"
+      entity_id: sensor.lrhomealarms
+    lr_alarm1_remaining:
+      value_template: "{% if states.sensor.lrhomealarms.attributes.alarm[0] is defined %}{{ (((states.sensor.lrhomealarms.attributes.alarm[0].fire_time / 1000) - as_timestamp(now())) /60) | round(0)}}{% endif %}"
+      entity_id: sensor.lrhomealarms
+      unit_of_measurement: "min"
+      
+- platform: rest
+  name: BRHomeAlarms
+  json_attributes:
+    - timer
+    - alarm
+  resource: http://192.168.0.34:8008/setup/assistant/alarms
+  value_template: '{% if value_json.alarm[0] is defined %}{{ value_json.alarm[0].id }}{% endif %}'
+  force_update: true
+- platform: template
+  sensors:
+    br_timer1_remaining:
+      value_template: '{% if states.sensor.brhomealarms.attributes.timer[0] is defined %}{{ ((states.sensor.brhomealarms.attributes.timer[0].fire_time + states.sensor.brhomealarms.attributes.timer[0].original_duration) / 1000) - as_timestamp(now()) | int }}{% endif %}'
+      unit_of_measurement: s
+      entity_id: sensor.brhomealarms
+    br_timer1_end_time:
+      value_template: '{% if states.sensor.brhomealarms.attributes.timer[0] is defined %}{{ ((states.sensor.brhomealarms.attributes.timer[0].fire_time + states.sensor.brhomealarms.attributes.timer[0].original_duration) / 1000) | int }}{% endif %}'
+      entity_id: sensor.brhomealarms
+    br_alarm1_time:
+      value_template: "{% if states.sensor.brhomealarms.attributes.alarm[0] is defined %}{{ states.sensor.brhomealarms.attributes.alarm[0].time_pattern | regex_replace('..hour..|,|.minute.|..second.....') }}{% endif %}"
+      entity_id: sensor.brhomealarms
+    br_alarm1_remaining:
+      value_template: "{% if states.sensor.brhomealarms.attributes.alarm[0] is defined %}{{ (((states.sensor.brhomealarms.attributes.alarm[0].fire_time / 1000) - as_timestamp(now())) /60) | round(0)}}{% endif %}"
+      entity_id: sensor.brhomealarms
+      unit_of_measurement: "min"
+
+#################
+# REST COMMANDS #
+#################    
+- platform: rest
+  resource: https://pypi.python.org/pypi/homeassistant/json
+  name: HA upstream
+  value_template: '{{ value_json.info.version }}'
+  scan_interval: 3600
+
+##########
+# HASSIO #
+##########
+- platform: systemmonitor
+  resources:
+    - type: disk_free
+      arg: /home
+    - type: disk_use_percent
+      arg: /
+    - type: last_boot
+    - type: memory_free
+    - type: processor_use
+
+###############
+# HOUSE MODES #
+###############
+- platform: template
+  sensors:
+    nic_status:
+      value_template: '{{ states.input_select.nic_status.state }}'
+      friendly_name: 'Nic'
+    emma_status:
+      value_template: '{{ states.input_select.emma_status.state }}'
+      friendly_name: 'Emma'
+    house_status:
+      value_template: '{{ states.input_select.house_status.state }}'
+      friendly_name: 'House Status'
+    guest_status:
+      value_template: '{{ states.input_boolean.guest_mode.state }}'
+      friendly_name: 'Guest Mode'
+
+- platform: template
+  sensors:
+     wakeup_time:
+          friendly_name: 'Wake Time'
+          value_template: >-
+              {{ "%0.02d:%0.02d" | format(states("input_number.wakeup_time") | int, (((states("input_number.wakeup_time") | float)*100 | int) -  ((states("input_number.wakeup_time") | int)*100))/1.66666666    ) }}
+              
+- platform: template
+  sensors:
+     sleep_time:
+          friendly_name: 'Sleep Time'
+          value_template: >-
+              {{ "%0.02d:%0.02d" | format(states("input_number.sleep_time") | int, (((states("input_number.sleep_time") | float)*100 | int) -  ((states("input_number.sleep_time") | int)*100))/1.66666666  ) }}
+              
+- platform: template
+  sensors:
+     overall_sleep_time:
+          friendly_name: 'Sleep Time'
+          value_template: >-
+              {{ "%0.02d:%0.02d - %0.02d:%0.02d" |  format(states("input_number.sleep_time") | int, (((states("input_number.sleep_time") | float)*100 | int) -  ((states("input_number.sleep_time") | int)*100))/1.66666666, states("input_number.wakeup_time") | int, (((states("input_number.wakeup_time") | float)*100 | int) -  ((states("input_number.wakeup_time") | int)*100))/1.66666666  ) }}

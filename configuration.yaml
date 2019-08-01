@@ -1,0 +1,236 @@
+#################################
+# filename: configuration.yaml
+# author: Nic Durish
+# date: August 2019
+#################################
+homeassistant:
+  name: Durnry
+  latitude: !secret latitude
+  longitude: !secret longitude
+  elevation: 313
+  unit_system: metric
+  time_zone: America/Toronto
+
+  customize: !include customize.yaml
+
+http:
+  base_url: !secret site_url
+  ssl_certificate: /ssl/fullchain.pem
+  ssl_key: /ssl/privkey.pem
+  
+lovelace:
+  mode: yaml
+
+##############
+# COMPONENTS #
+##############
+system_health:
+updater:
+discovery:
+conversation:
+sun:
+media_extractor:
+tts:
+  - platform: google_translate
+    service_name: google_say
+    
+#weather:
+#  - platform: darksky
+#    name: Forecast
+#    mode: daily
+#    units: si
+#    api_key: !secret darksky_key
+    
+speedtestdotnet:
+  scan_interval:
+    minutes: 5
+    
+device_tracker:
+  - platform: hitron_coda
+    host: 192.168.0.1
+    username: !secret wifi_user
+    password: !secret wifi_pass
+    type: rogers
+    
+google:
+  client_id: !secret google_cal_id
+  client_secret: !secret google_cal_secret
+  
+cast:
+  media_player:
+    - host: 192.168.0.26
+    - host: 192.168.0.25
+    - host: 192.168.0.24
+    - host: 192.168.0.34
+
+ecobee:
+  api_key: !secret ecobee_key
+  
+#spotcast:
+#  username: !secret spotify_username
+#  password: !secret spotify_password
+  
+media_player:
+#  - platform: spotify
+#    client_id: !secret spotify_id
+#    client_secret: !secret spotify_secret
+
+  - platform: roku
+    host: 192.168.0.23
+    
+  - platform: roku
+    host: 192.168.0.22
+
+#  - platform: plex
+#    entity_namespace: 'plex'
+#    include_non_clients: true
+#    scan_interval: 5
+#    show_all_controls: true
+#    use_custom_entity_ids: true
+#    use_episode_art: true
+#    remove_unavailable_clients: true
+#    client_remove_interval: 600
+
+camera:
+  - platform: mjpeg
+    name: iPhone1
+    mjpeg_url: http://192.168.0.18/live
+  - platform: mjpeg
+    name: iPhone2
+    mjpeg_url: http://192.168.0.28/live
+    
+notify:
+  - name: Nic_notify
+    platform: pushbullet
+    api_key: !secret pushbullet_nic
+  - name: Emma_notify
+    platform: pushbullet
+    api_key: !secret pushbullet_emma
+    
+switch:
+#  - platform: command_line
+#    switches:
+#      lr_tv:
+#        command_on: "/usr/bin/curl -d '{\"command\":\"turn on livingroom tv\", \"user\":\"house\", \"converse\":\"true\"}' -H \"Content-Type: application/json\" -X POST http://192.168.0.13:3000/assistant"
+#        command_off: "/usr/bin/curl -d '{\"command\":\"turn off livingroom tv\", \"user\":\"house\", \"converse\":\"true\"}' -H \"Content-Type: application/json\" -X POST http://192.168.0.13:3000/assistant"
+#        friendly_name: Living Room TV
+  - platform: tplink
+    host: 192.168.0.20
+  - platform: tplink
+    host: 192.168.0.21
+  - platform: command_line
+    switches:
+      iphone1_torch:
+        friendly_name: Torch
+        command_on: 'curl http://192.168.0.18/parameters?torch=1' 
+        command_off: 'curl http://192.168.0.18/parameters?torch=0'
+        
+custom_updater:
+  show_installable: false
+  track:
+    - components
+    - cards
+
+####################
+# BAYESION SENSORS #
+####################
+binary_sensor:
+    - platform: bayesian
+      prior: 0.5
+      name: "nic_presence"
+      device_class: 'presence'
+      probability_threshold: 0.8
+      observations:
+        - entity_id: 'device_tracker.unknown_2'
+          prob_given_true: 0.99
+          prob_given_false: 0.05
+          platform: 'state'
+          to_state: 'home'
+
+    - platform: bayesian
+      prior: 0.5
+      name: "emma_presence"
+      device_class: 'presence'
+      probability_threshold: 0.8
+      observations:
+        - entity_id: 'device_tracker.0_2'
+          prob_given_true: 0.99
+          prob_given_false: 0.05
+          platform: 'state'
+          to_state: 'home'
+          
+##########
+# INPUTS #
+##########
+#INPUT SELECT
+input_select:
+  house_status:
+    name: House Status
+    icon: mdi:home
+    options:
+      - Home
+      - Asleep
+      - Away
+      - Vacation
+      
+  nic_status:
+    name: Nic
+    options:
+      - Home
+      - Just Arrived
+      - Just Left
+      - Away
+      - Extended Away
+
+  emma_status:
+    name: Emma
+    options:
+      - Home
+      - Just Arrived
+      - Just Left
+      - Away
+      - Extended Away
+      
+#INPUT BOOLEAN
+input_boolean:
+  guest_mode:
+    name: Guest Mode
+    icon: mdi:account-plus
+    initial: off
+
+#INPUT NUMBER/SLIDER
+input_number:
+  wakeup_time:
+    name: Wake Time
+    icon: mdi:alarm
+    min: 0
+    max: 24
+    step: 0.25
+
+  sleep_time:
+    name: Sleep Time
+    icon: mdi:sleep
+    min: 0
+    max: 24
+    step: 0.25
+
+
+###########
+# SIDEBAR #
+###########
+frontend:
+  themes: !include themes.yaml
+  javascript_version: latest
+#map:
+logbook:
+history:
+config:
+
+############
+# INCLUDES #
+############
+automation: !include_dir_merge_list includes/automations
+group: !include includes/groups.yaml
+scene: !include includes/scenes.yaml
+sensor: !include includes/sensors.yaml
+script: !include includes/scripts.yaml

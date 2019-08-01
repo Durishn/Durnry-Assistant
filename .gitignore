@@ -1,0 +1,53 @@
+# Enders .gitignore Template #
+##############################
+
+# Compiled sources & packages #
+###############################
+# *.com
+# *.class
+# *.dll
+# *.exe
+# *.o
+# *.so
+# *.dmg
+# *.gz
+# *.iso
+# *.jar
+# *.rar
+# *.tar
+# *.zip
+
+# Secrets, Logs and Databases #
+###############################
+EnderNotes.md
+secret*
+log.txt
+*.log
+*.sql
+*.sqlite
+
+# OS generated files #
+######################
+.DS_Store
+.DS_Store?
+._*
+__pycache__/
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Project Specific Files #
+##########################
+tts/
+deps/
+known_devices.yaml
+secrets.yaml
+.cloud/
+.google.token
+.HA_VERSION
+.storage/
+.uuid
+ecobee.conf
+google_calendars.yaml
+home-assistant*
