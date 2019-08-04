@@ -10,27 +10,27 @@ The following repo contains the configuration files for [Home Assistant](https:/
 # Front End Screen Shots:
 ## Home
 <p align="center">
-  <img src="https://raw.githubusercontent.com/Durishn/LawrenceAssist-Hass.io/master/www/home.png">
+  <img src="https://raw.githubusercontent.com/Durishn/Durnry-Assistant/master/www/img/home.png">
 </p>
 
 ## History
 <p align="center">
-  <img src="https://raw.githubusercontent.com/Durishn/LawrenceAssist-Hass.io/master/www/hist.png">
+  <img src="https://raw.githubusercontent.com/Durishn/Durnry-Assistant/master/www/img/hist.png">
 </p>
 
 ## Rooms
 <p align="center">
-  <img src="https://raw.githubusercontent.com/Durishn/LawrenceAssist-Hass.io/master/www/rooms.png">
+  <img src="https://raw.githubusercontent.com/Durishn/Durnry-Assistant/master/www/img/rooms.png">
 </p>
 
 ## Network
 <p align="center">
-  <img src="https://raw.githubusercontent.com/Durishn/LawrenceAssist-Hass.io/master/www/net.png">
+  <img src="https://raw.githubusercontent.com/Durishn/Durnry-Assistant/master/www/img/net.png">
 </p>
 
 ## Setting
 <p align="center">
-  <img src="https://raw.githubusercontent.com/Durishn/LawrenceAssist-Hass.io/master/www/sett.png">
+  <img src="https://raw.githubusercontent.com/Durishn/Durnry-Assistant/master/www/img/sett.png">
 </p>
 
 # Front-End - Sensors and Controllers:

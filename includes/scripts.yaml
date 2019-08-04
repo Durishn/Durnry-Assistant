@@ -3,11 +3,11 @@ media_fire:
     sequence:
       - service: media_player.volume_set
         data:
-          entity_id: media_player.chromecastultra6081
+          entity_id: media_player.livingroom_tv
           volume_level: 0.30
       - service: media_extractor.play_media
         data:
-          entity_id: media_player.chromecastultra6081
+          entity_id:  media_player.livingroom_tv
           media_content_type: video/youtube
           media_content_id: "https://www.youtube.com/watch?v=ZY3J3Y_OU0w"
 
@@ -17,10 +17,10 @@ welcome:
       - delay: '00:00:10'
       - service: media_player.volume_set
         data:
-          entity_id: media_player.googlehome5702
+          entity_id: media_player.livingroom_speaker
           volume_level: 0.50
       - service: tts.google_say
-        entity_id: media_player.googlehome5702
+        entity_id: media_player.livingroom_speaker
         data:
           message: 'Welcome Home'
           
@@ -44,7 +44,7 @@ light_flash:
         flash: short
     - service: light.turn_on
       data:
-        entity_id: light.living_room_2
+        entity_id: light.living_room
         flash: short
     - delay:
         seconds: 1
@@ -58,7 +58,7 @@ light_flash:
         flash: short
     - service: light.turn_on
       data:
-        entity_id: light.living_room_2
+        entity_id: light.living_room
         flash: short
     - delay:
         seconds: 1
@@ -72,7 +72,7 @@ light_flash:
         flash: short
     - service: light.turn_on
       data:
-        entity_id: light.living_room_2
+        entity_id: light.living_room
         flash: short
         
 sunrise:
@@ -112,3 +112,15 @@ sunrise:
     - service: scene.turn_on
       data:
         entity_id: scene.bright
+        
+##################
+# SCENE WRAPPERS #
+##################
+cabin_scene:
+  alias: 'Cabin Scene'
+  sequence:
+  - service: scene.turn_on
+    data:
+      entity_id: scene.cabin
+  - service: script.turn_on
+    entity_id: script.media_fire

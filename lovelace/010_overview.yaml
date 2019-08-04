@@ -1,0 +1,368 @@
+title: OVERVIEW
+#icon: mdi:information-outline
+icon: mdi:ballot-outline
+cards:
+
+############
+# COLUMN 1 #
+############
+      - type: custom:card-modder
+        card:
+            type: vertical-stack
+            cards:
+#HOUSE STATUS       
+              - type: custom:card-modder
+                card:
+                    type: vertical-stack
+                    cards:
+                      - type: conditional
+                        conditions:
+                          - entity: sensor.house_status
+                            state: "Home"
+                        card:
+                          type: picture
+                          entity: sensor.house_status
+                          image: /local/img/states/home-account.png
+                      - type: conditional
+                        conditions:
+                          - entity: sensor.house_status
+                            state: "Away"
+                        card:
+                          type: picture
+                          entity: sensor.house_status
+                          image: /local/img/states/home-minus.png
+                      - type: conditional
+                        conditions:
+                          - entity: sensor.house_status
+                            state: "Asleep"
+                        card:
+                          type: picture
+                          entity: sensor.house_status
+                          image: /local/img/states/sleep.png
+                      - type: conditional
+                        conditions:
+                          - entity: sensor.house_status
+                            state: "Vacation"
+                        card:
+                          type: picture
+                          entity: sensor.house_status
+                          image: /local/img/states/beach.png
+                style:
+                    width: 60px
+                    margin: auto
+                    top: 25px
+                    
+              - type: markdown
+                content: >
+                    # [[ sensor.house_status.state ]]
+                  
+#HOUSE OVERVIEW
+              - type: vertical-stack
+                cards:
+                  - type: glance
+                    show_name: false
+                    entities:
+                      - group.all_motion
+#                      - sensor.light_on_count
+                      - sensor.living_room_humidity
+                      - sensor.living_room_temperature
+                      - climate.living_room
+    
+#AT HOME
+                  - type: custom:auto-entities
+                    show_empty: false
+                    card:
+                      type: glance
+                      show_header_toggle: false
+                      style: |
+                        ha-card {
+                            margin-top: 20px;
+                        }
+                    filter:
+                      include:
+                        - entity_id: sensor.nic_status
+                        - entity_id: sensor.emma_status
+                        - group: group.guests
+                          state: "home"
+#WEATHER
+                  - type: weather-forecast
+                    entity: weather.dunry_home
+                    style: |
+                        ha-card {
+                            margin-top: calc(30vh - 160px) !important;
+                        }
+                        .attributes, .name, .header{
+                            display:none
+                        }
+        style:
+          background-color: rgba(0,0,0,0.0)
+          border-radius: 0px
+          border: solid 0px rgba(0,0,0,0.0)
+          box-shadow: 3px 3px rgba(0,0,0,0.0)
+          text-align: center
+
+############
+# COLUMN 2 #
+############ 
+      - type: custom:vertical-stack-in-card
+        title: Controls
+        style: |
+            vertical-stack-in-card {
+                border-radius: 10px !important;
+            }
+        cards:
+#SCENES SECTION
+          - type: glance
+            show_state: false
+            entities:
+              - entity: scene.all_off
+                tap_action: 
+                  action: call-service
+                  service: scene.turn_on
+                  service_data:
+                    entity_id: scene.all_off
+              - entity: scene.bright
+                tap_action: 
+                  action: call-service
+                  service: scene.turn_on
+                  service_data:
+                    entity_id: scene.bright
+              - entity: scene.warm
+                tap_action: 
+                  action: call-service
+                  service: scene.turn_on
+                  service_data:
+                    entity_id: scene.warm
+              - entity: script.cabin_scene
+                tap_action: 
+                  action: call-service
+                  service: script.turn_on
+                  service_data:
+                    entity_id: script.cabin_scene
+              - entity: scene.movie
+                tap_action: 
+                  action: call-service
+                  service: scene.turn_on
+                  service_data:
+                    entity_id: scene.movie
+              - entity: scene.social
+                tap_action: 
+                  action: call-service
+                  service: scene.turn_on
+                  service_data:
+                    entity_id: scene.social
+              - entity: scene.bedmode
+                tap_action: 
+                  action: call-service
+                  service: scene.turn_on
+                  service_data:
+                    entity_id: scene.bedmode
+            style: |
+                ha-card {
+                    border-radius: 10px;
+                }
+                
+    #LIVINGROOM CARD
+          - type: custom:fold-entity-row
+            head: 
+                type: section
+                label: Living Room
+            items:
+              - type: custom:vertical-stack-in-card
+                cards:
+                  #SENSORS SECTION
+                  - type: glance
+                    show_name: false
+                    entities:
+                      - entity: sensor.living_room_temperature
+                        name: Temperature
+                      - entity: camera.iphone2
+                        icon: mdi:cctv
+                        name: Camera
+                  #COMPONENTS SECTION
+                  - type: entities
+                    entities:
+                      - type: custom:slider-entity-row
+                        entity: light.entrance_light
+                        secondary_info: last-changed
+                        toggle: true
+                      - type: custom:slider-entity-row
+                        entity: light.living_room_light
+                        secondary_info: last-changed
+                        toggle: true
+                      - type: custom:slider-entity-row
+                        entity: light.hall_light
+                        secondary_info: last-changed
+                        toggle: true
+                      - entity: switch.stringlight
+                        secondary_info: last-changed
+                      - entity: switch.floorlamp
+                        secondary_info: last-changed
+                      - entity: media_player.living_room
+                        type: custom:mini-media-player
+                        name: Roku
+                        show_source: true
+                        artwork: cover
+                        power_color: false
+                        hide_volume: false
+                        scroll_info: true
+                        group: true
+                      - entity: media_player.livingroom_tv
+                        type: custom:mini-media-player
+                        name: Chromecast Ultra
+                        show_source: true
+                        artwork: cover
+                        power_color: false
+                        hide_volume: false
+                        scroll_info: true
+                        group: true 
+                      - entity: media_player.livingroom_speaker
+                        type: custom:mini-media-player
+                        name: Google Home Mini
+                        show_source: true
+                        artwork: cover
+                        power_color: false
+                        hide_volume: false
+                        scroll_info: true
+                        group: true
+            style: |
+                ha-card {
+                  background-color: rgba(0,0,0,0.0);
+                  border-radius: 0px;
+                  border: solid 0px rgba(0,0,0,0.0);
+                  box-shadow: 3px 3px rgba(0,0,0,0.0);
+                }
+                .label {
+                    color: white !important;
+                }
+                .divider {
+                    display: none !important;
+                }
+    
+    #BEDROOM CARD
+    ###############
+          - type: custom:fold-entity-row
+            head: 
+                type: section
+                label: Bedroom
+            items:
+              - type: custom:vertical-stack-in-card
+                title: Bedroom
+                cards:
+                  - type: glance
+                    show_name: false
+                    entities:
+                      - entity: sensor.bedroom_temperature
+                        name: Temperature
+                      - entity: binary_sensor.bedroom_occupancy
+                        icon: mdi:walk
+                        name: Motion 
+        
+                  - type: entities
+                    entities:
+                      #- type: section
+                       # label: Components
+                      - type: custom:slider-entity-row
+                        entity: light.bedroom
+                        icon: mdi:ceiling-light
+                        name: Light
+                        secondary_info: last-changed
+                        toggle: true
+                      - entity: media_player.bedroom_speaker
+                        type: custom:mini-media-player
+                        name: Google Home Mini
+                        show_source: true
+                        artwork: cover
+                        power_color: false
+                        hide_volume: false
+                        scroll_info: true
+                        group: true 
+    
+    #OFFICE CARD
+    ###############
+          - type: custom:fold-entity-row
+            head: 
+                type: section
+                label: Office
+            items:
+              - type: custom:vertical-stack-in-card
+                title: Office
+                cards:
+                  - type: glance
+                    show_name: false
+                    entities:
+                      - entity: sensor.office_temperature
+                        name: Temperature
+                      - entity: binary_sensor.office_occupancy
+                        icon: mdi:walk
+                        name: Motion 
+                  # COMPONENTS
+                  - type: entities
+                    entities:
+                     # - type: section
+                     #   label: Components
+                      - type: custom:slider-entity-row
+                        entity: light.office_light
+                        icon: mdi:ceiling-light
+                        name: Hanging Light
+                        secondary_info: last-changed
+                        toggle: true
+    #BATHROOM CARD
+          - type: custom:fold-entity-row
+            head: 
+                type: section
+                label: Bathroom
+            items:
+              - type: custom:vertical-stack-in-card
+                title: Bathroom
+                cards:
+                  - type: entities
+                    entities:
+                      - entity: media_player.bathroom_speaker
+                        type: custom:mini-media-player
+                        name: Google Home Mini
+                        show_source: true
+                        artwork: cover
+                        power_color: false
+                        hide_volume: false
+                        scroll_info: true
+                        group: true
+    #EXTERIOR CARD
+          - type: custom:fold-entity-row
+            head: 
+                type: section
+                label: Exterior
+            items:
+              - type: custom:vertical-stack-in-card
+                title: Exterior
+                cards:
+                  - type: glance
+                    entities:
+                      - entity: camera.iphone1
+                        icon: mdi:cctv
+                        name: Chicken Cam
+                  - type: entities
+                    entities:
+                      - type: entity
+                        entity: switch.iphone1_torch
+                        name: Chicken Cam - Light
+                        secondary_info: last-changed
+                        toggle: true
+                      - type: custom:slider-entity-row
+                        entity: light.porch_light
+                        icon: mdi:ceiling-light
+                        name: Porch Light
+                        secondary_info: last-changed
+                        toggle: true
+
+    #CALENDAR SECTION       
+      - type: "custom:calendar-card"
+        title: "Calendar"
+        progressBar: true
+        entities:
+          - calendar.family 
+        style: |
+            ha-card {
+                border-radius: 10px;
+                height: 252px !important;
+            }

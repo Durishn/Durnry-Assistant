@@ -7,13 +7,14 @@
     switch.floorlamp: false
     switch.stringlight: false
     switch.lr_tv: false
-    media_player.living_room_tv: false
-    media_player.living_room: false
-    media_player.googlehome5702: false
+    media_player.bedroom_speaker: false
+    media_player.livingroom_tv: false
+    media_player.livingroom_speaker: false
+    media_player.bathroom_speaker: false
 
 - name: Bright
   entities:
-    light.living_room:
+    light.living_room_light:
       state: true
       color_temp: 335
       brightness: 255
@@ -21,13 +22,13 @@
       state: true
       color_temp: 335
       brightness: 255
-    light.hue_white_lamp_3:
+    light.office_light:
       state: true
       brightness: 255
-    light.hue_white_lamp_2:
+    light.hall_light:
       state: true
       brightness: 255
-    light.hue_white_lamp_1:
+    light.entrance_light:
       state: true
       brightness: 255
     switch.floorlamp: true
@@ -36,7 +37,7 @@
 
 - name: Warm
   entities:
-    light.living_room:
+    light.living_room_light:
       state: true
       color_temp: 370
       brightness: 225
@@ -44,13 +45,13 @@
       state: true
       color_temp: 300
       brightness: 245
-    light.hue_white_lamp_3:
+    light.entrance_light:
       state: true
       brightness: 130
-    light.hue_white_lamp_2:
+    light.office_light:
       state: true
       brightness: 215
-    light.hue_white_lamp_1:
+    light.hall_light:
       state: true
       brightness: 185
     switch.floorlamp: true
@@ -60,7 +61,7 @@
 - name: Cabin
   entities:
     #AUTOMATION OCCURS HERE THAT CHECKS IF SCENE IS ENABLED AND TURNS ON FIREPLACE
-    light.living_room:
+    light.living_room_light:
       state: true
       color_temp: 470
       brightness: 200
@@ -68,13 +69,13 @@
       state: true
       color_temp: 380
       brightness: 220
-    light.hue_white_lamp_3:
+    light.entrance_light:
       state: true
       brightness: 130
-    light.hue_white_lamp_2:
+    light.office_light:
       state: true
       brightness: 210
-    light.hue_white_lamp_1:
+    light.hall_light:
       state: true
       brightness: 140
     switch.floorlamp: false
@@ -84,21 +85,21 @@
 - name: Movie
   entities:
     light.bedroom: false
-    light.living_room:
+    light.living_room_light:
       state: true
       color_temp: 540
       brightness: 90
-    light.hue_white_lamp_1: false
-    light.hue_white_lamp_2: false
-    light.hue_white_lamp_3: false
-    light.hue_white_lamp_4: false
+    light.entrance_light: false
+    light.porch_light: false
+    light.office_light: false
+    light.hall_light: false
     switch.floorlamp: false
     switch.stringlight: false
-    switch.lr_tv: true
+#    switch.lr_tv: true
     
 - name: Social
   entities:
-    light.living_room:
+    light.living_room_light:
       state: true
       effect: colorloop
       brightness: 200
@@ -106,13 +107,13 @@
       state: true
       color_temp: 300
       brightness: 200
-    light.hue_white_lamp_3:
+    light.hall_light:
       state: true
       brightness: 140
-    light.hue_white_lamp_2:
+    light.office_light:
       state: true
       brightness: 210
-    light.hue_white_lamp_1:
+    light.entrance_light:
       state: true
       brightness: 170
     switch.floorlamp: false
@@ -127,13 +128,13 @@
       state: true
       color_temp: 380
       brightness: 100
-    light.hue_white_lamp_4:
+    light.porch_light:
       state: false
-    light.hue_white_lamp_3:
+    light.entrance_light:
       state: false
-    light.hue_white_lamp_2:
+    light.office_light:
       state: false
-    light.hue_white_lamp_1:
+    light.hall_light:
       state: false
     switch.floorlamp: false
     switch.stringlight: false

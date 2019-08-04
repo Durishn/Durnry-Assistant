@@ -1,0 +1,92 @@
+icon: mdi:robot
+title: Systems
+cards:
+    
+#NETWORK
+###############
+  - type: custom:vertical-stack-in-card
+    title: Network
+    show_header_toggle: false
+    cards:
+      - type: history-graph
+        entities:
+          - entity: sensor.speedtest_download
+            name: Download
+          - entity: sensor.speedtest_upload
+            name: Upload
+      - type: entities
+        entities:
+          - type: custom:fold-entity-row
+            head: sensor.device_count
+            items:
+              - type: custom:group-card
+                card:
+                    type: entities
+                group: group.all_devices
+                style: |
+                  ha-card {
+                    box-shadow: 0px 0px rgba(0,0,0,0.0) !important;
+                  }
+                  
+#HASSIO
+###############
+  - type: custom:vertical-stack-in-card
+    title: Hass.io
+    show_header_toggle: false
+    cards:
+      - type: glance
+        entities:
+          - entity: sensor.disk_use_percent
+            name: Disk Use
+          - entity: sensor.disk_free_home
+            name: Disk Free
+          - entity: sensor.processor_use
+            name: Processor Use
+#              - entity: sensor.memory_free
+#                name: Memory Free
+          - entity: sensor.last_boot
+            name: Since Boot
+            tap_action: call-service
+            service: hassio.host_reboot
+      - type: entities
+        entities:
+          - entity: sensor.ha_upstream
+            icon: mdi:home-assistant
+            name: "Hass.io Version:"
+          - entity: sensor.snapshot_backup
+            icon: mdi:backup-restore
+            name: "Hass.io Snapshot"
+          - type: section
+            label: LR Display
+      - type: glance
+        show_name: false
+        entities:
+          - entity: sensor.cpt_ipad_battery_level
+            name: "Level"
+          - entity: sensor.cpt_ipad_battery_state
+            name: "State"
+
+#TIMERS AND ALARMS - Deprecated :(
+###############
+#  - type: entities
+#    title: Alarms & Timers
+#    show_header_toggle: false
+#    entities:
+#      - entity: sensor.time
+#        name: Current Time
+#      - type: section
+#        label: LR Home Mini
+#      - entity: sensor.lr_alarm1_time
+#        name: Alarm1 Time
+#      - entity: sensor.lr_alarm1_remaining
+#        name: Alarm1 Time Remaining
+#      - entity: sensor.lr_timer1_remaining
+#        name: Timer1 Time Remaining
+#      - type: section
+#        label: BR Home Mini
+#      - entity: sensor.br_alarm1_time
+#        name: Alarm1 Time
+#      - entity: sensor.br_alarm1_remaining
+#        name: Alarm1 Time Remaining
+#      - entity: sensor.br_timer1_remaining
+#        name: Timer1 Time Remaining

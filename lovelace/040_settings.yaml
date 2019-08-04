@@ -1,0 +1,66 @@
+icon: mdi:settings
+title: Settings
+cards:
+    
+#OVERRIDES CARD
+###############
+  - type: entities
+    title: Master Overrides
+    show_header_toggle: false
+    entities:
+      - input_select.house_status
+      - input_select.nic_status
+      - input_select.emma_status
+      - input_boolean.guest_mode
+      - type: custom:fold-entity-row
+        head: sensor.overall_sleep_time
+        open: false
+        entities:
+          - input_number.wakeup_time
+          - input_number.sleep_time
+
+      
+#ENTITIES CARD
+###############
+  - type: entities
+    title: Entity Overrides
+    show_header_toggle: false
+    entities:
+      - type: custom:fold-entity-row
+        head: sensor.automation_count
+        items:
+          - type: custom:group-card
+            card:
+                type: entities
+            group: group.all_automations
+            style: |
+              ha-card {
+                box-shadow: 0px 0px rgba(0,0,0,0.0) !important;
+              }
+      - type: custom:fold-entity-row
+        head: sensor.script_count
+        items:
+          - type: custom:group-card
+            card:
+                type: entities
+            group: group.all_scripts
+      - type: custom:fold-entity-row
+        head: sensor.light_count
+        items:
+          - type: custom:group-card
+            card:
+                type: entities
+            group: group.all_lights
+      - type: custom:fold-entity-row
+        head: sensor.switch_count
+        items:
+          - type: custom:group-card
+            card:
+                type: entities
+            group: group.all_switches
+
+#CUSTOM CARDS
+###############          
+  - type: custom:tracker-card
+    title: "Custom Cards"
+          

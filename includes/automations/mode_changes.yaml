@@ -1,4 +1,4 @@
-- alias: 'Set theme at startup'
+- alias: 'BACK - Set theme at startup'
   initial_state: 'on'
   trigger:
    - platform: homeassistant
@@ -9,7 +9,7 @@
       name: midnight
 
 - id: letsencrypt-renewal
-  alias: "Let's Encrypt Renewal"
+  alias: "BACK - Let's Encrypt Renewal"
   trigger:
   - platform: time
     at: '00:00:00'
@@ -17,30 +17,11 @@
   - service: hassio.addon_restart
     data:
       addon: core_letsencrypt
-      
-###################
-# SCENE REACTIONS #
-###################
-- alias: 'Cabin Fireplace'
-  trigger:
-    - platform: event
-      event_type: call_service
-      event_data:
-        service_data:
-          entity_id: scene.cabin
-        domain: scene
-        service: turn_on
-  action:
-    - service: switch.turn_on
-      data:
-        entity_id: switch.lr_tv
-    - service: script.media_fire
-
 
 ##########
 # GUESTS #
 ##########
-- alias: "Guests Arrive"
+- alias: "GUESTS - Arrive"
   trigger:
     platform: state
     entity_id: group.guests
@@ -51,7 +32,7 @@
     data:
       entity_id: input_boolean.guest_mode
 
-- alias: "Guests Leave"
+- alias: "GUESTS - Leave"
   trigger:
     platform: state
     entity_id: group.guests
@@ -66,7 +47,7 @@
     data:
       entity_id: input_boolean.guest_mode
       
-- alias: "Set Home when guest mode"
+- alias: "GUESTS - Set Home when guest"
   trigger:
     platform: state
     entity_id: input_boolean.guest_mode
@@ -86,7 +67,7 @@
       entity_id: input_select.house_status
       option: "Home"
 
-- alias: "Set Away when no guest mode"
+- alias: "GUESTS - Set Away when no guest"
   trigger:
     platform: state
     entity_id: input_boolean.guest_mode
@@ -104,7 +85,7 @@
 ########################
 # PERSON STATE CHANGES #
 ########################
-- alias: Mark person as just arrived
+- alias: "PSTATE - Mark person as just arrived"
   trigger:
     - platform: state
       entity_id: binary_sensor.nic_presence
@@ -125,7 +106,7 @@
           {% endif %}
         option: Just Arrived
 
-- alias: Mark person as home
+- alias: "PSTATE - Mark person as home"
   trigger:
     - platform: state
       entity_id: input_select.nic_status
@@ -156,7 +137,7 @@
           {% endif %}
         option: Home
 
-- alias: Mark person as just left
+- alias: "PSTATE - Mark person as just left"
   trigger:
     - platform: state
       entity_id: binary_sensor.nic_presence
@@ -177,7 +158,7 @@
           {% endif %}
         option: Just Left
 
-- alias: Mark person as away
+- alias: "PSTATE - Mark person as away"
   trigger:
     - platform: state
       entity_id: input_select.nic_status
@@ -200,7 +181,7 @@
           {% endif %}
         option: Away
 
-- alias: Mark person as extended away
+- alias: "PSTATE - Mark person as extended away"
   trigger:
     - platform: state
       entity_id: input_select.nic_status
@@ -226,7 +207,7 @@
 #######################
 # HOUSE STATE CHANGES #
 #######################
-- alias: "Mode Coming Home"
+- alias: "HSTATE - Mode Coming Home"
   trigger:
     - platform: state
       entity_id: binary_sensor.nic_presence, binary_sensor.emma_presence
@@ -253,7 +234,7 @@
       entity_id: input_select.house_status
       option: "Home"
 
-- alias: "Mode Going Away"
+- alias: "HSTATE - Mode Going Away"
   trigger:
     - platform: state
       entity_id: input_select.nic_status
@@ -286,7 +267,7 @@
       entity_id: input_select.house_status
       option: "Away"
 
-- alias: "Mode Going On Vacation"
+- alias: "HSTATE - Mode Going On Vacation"
   trigger:
     - platform: state
       entity_id: input_select.nic_status
@@ -307,7 +288,7 @@
       entity_id: input_select.house_status
       option: "Vacation"
       
-- alias: "Mode Alarm Wakeup"
+- alias: "HSTATE - Mode Alarm Wakeup"
   trigger:
     - platform: numeric_state
       entity_id: sensor.br_alarm1_remaining
@@ -319,7 +300,7 @@
         entity_id: input_select.house_status
         option: "Home"
         
-- alias: "Mode Alarm Sleep"
+- alias: "HSTATE - Mode Alarm Sleep"
   trigger:
     - platform: numeric_state
       entity_id: sensor.br_alarm1_remaining
@@ -334,7 +315,7 @@
 #################
 # ALARM CHANGES #
 #################
-- alias: "Mode Sleep Time"
+- alias: "ALARM - Mode Sleep Time"
   trigger:
     platform: time_pattern
     minutes: '/1'
@@ -352,7 +333,7 @@
       entity_id: input_select.house_status
       option: "Asleep"
 
-- alias: "Mode Wake Time"
+- alias: "ALARM - Mode Wake Time"
   trigger:
     platform: time_pattern
     minutes: '/1'
