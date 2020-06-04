@@ -51,3 +51,4 @@ secrets.yaml
 ecobee.conf
 google_calendars.yaml
 home-assistant*
+*.conf

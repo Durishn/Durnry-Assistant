@@ -1,7 +1,7 @@
 ########################
 # HASSIO NOTIFICATIONS #
 ########################
-- alias: 'Update Available Notifications'
+- alias: 'NOTIFY - Update Available Notifications'
   initial_state: 'on'
   trigger:
     platform: state
@@ -14,7 +14,7 @@
 ########################
 # MOBILE NOTIFICATIONS #
 ########################
-- alias: "Notify Nic on Arrival"
+- alias: "NOTIFY - Notify Nic on Arrival"
   trigger:
     - platform: state
       entity_id: input_select.house_status
@@ -29,7 +29,7 @@
         title: "Lawrence Assistant"
         message: "Someone has come home!"
         
-- alias: "Notify Nic on Motion if Away"
+- alias: "NOTIFY - Notify Nic on Motion if Away"
   trigger:
   - platform: state
     entity_id: binary_sensor.office_occupancy
@@ -53,7 +53,7 @@
         title: "Lawrence Assistant"
         message: "Theres motion in the house and noones home - check your cameras!"
 
-- alias: "Notify Low Temp"
+- alias: "NOTIFY - Notify Low Temp"
   trigger:
     - platform: numeric_state
       entity_id: sensor.living_room_temperature
@@ -64,7 +64,7 @@
         title: "Lawrence Assistant"
         message: "Temperature is currently below 15!"
         
-- alias: "Notify High Temp"
+- alias: "NOTIFY - Notify High Temp"
   trigger:
     - platform: numeric_state
       entity_id: sensor.living_room_temperature
@@ -78,7 +78,7 @@
 ##############
 # BROADCASTS #
 ##############
-- alias: "Welcoming Message"
+- alias: "NOTIFY - Welcoming Message"
   trigger:
   - platform: state
     entity_id: input_select.house_status

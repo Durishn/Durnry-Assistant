@@ -33,6 +33,7 @@ media_extractor:
 tts:
   - platform: google_translate
     service_name: google_say
+    base_url: !secret site_url_pub
     
 #weather:
 #  - platform: darksky
@@ -55,13 +56,30 @@ device_tracker:
 google:
   client_id: !secret google_cal_id
   client_secret: !secret google_cal_secret
-  
+
+googlehome:
+  devices:
+    - host: 192.168.0.25
+      track_alarms: true
+      track_devices: true
+    - host: 192.168.0.24
+      track_alarms: true
+      track_devices: true
+    - host: 192.168.0.34
+      track_alarms: true
+      track_devices: true
+      
+hue:
+  bridges:
+    - host: 192.168.0.14
+    
 cast:
   media_player:
     - host: 192.168.0.26
+    - host: 192.168.0.34
     - host: 192.168.0.25
     - host: 192.168.0.24
-    - host: 192.168.0.34
+
 
 ecobee:
   api_key: !secret ecobee_key
@@ -106,6 +124,12 @@ notify:
   - name: Emma_notify
     platform: pushbullet
     api_key: !secret pushbullet_emma
+
+tplink:
+  discovery: true
+  switch:
+    - host: 192.168.0.20
+    - host: 192.168.0.21
     
 switch:
 #  - platform: command_line
@@ -114,10 +138,6 @@ switch:
 #        command_on: "/usr/bin/curl -d '{\"command\":\"turn on livingroom tv\", \"user\":\"house\", \"converse\":\"true\"}' -H \"Content-Type: application/json\" -X POST http://192.168.0.13:3000/assistant"
 #        command_off: "/usr/bin/curl -d '{\"command\":\"turn off livingroom tv\", \"user\":\"house\", \"converse\":\"true\"}' -H \"Content-Type: application/json\" -X POST http://192.168.0.13:3000/assistant"
 #        friendly_name: Living Room TV
-  - platform: tplink
-    host: 192.168.0.20
-  - platform: tplink
-    host: 192.168.0.21
   - platform: command_line
     switches:
       iphone1_torch:
@@ -223,7 +243,60 @@ frontend:
   javascript_version: latest
 #map:
 logbook:
+  include:
+    entities:
+    - sensor.house_status
+    - sensor.nic_status
+    - sensor.emma_status
+    - sensor.guest_status
+    
+    - binary_sensor.bedroom_occupancy
+    - binary_sensor.office_occupancy
+    
+    - light.exterior
+    - light.living_room
+    - light.bedroom
+    - light.office
+    domains:
+      - devices
+      - script
+    
 history:
+  use_include_order: True
+  include:
+    entities:
+      - sensor.house_status
+      - sensor.nic_status
+      - sensor.emma_status
+      - sensor.guest_status
+      - sun.sun
+      - sensor.guelph_minutely_summary
+      - binary_sensor.bedroom_occupancy
+      - binary_sensor.office_occupancy
+      
+      - sensor.guelph_temperature
+      - sensor.bedroom_temperature
+      - sensor.office_temperature
+      - sensor.living_room_temperature
+      - climate.living_room
+      - sensor.speedtest_download
+      - sensor.speedtest_upload
+      
+      - sensor.guelph_precip_probability
+      - sensor.living_room_humidity
+      - sensor.guelph_humidity
+    domains:
+      - light
+      - switch
+      - device
+  exclude:
+    entities:
+    - light.exterior
+    - light.office
+    - light.bedroom_1
+    - light.bedroom_2
+    - light.living_room
+      
 config:
 
 ############

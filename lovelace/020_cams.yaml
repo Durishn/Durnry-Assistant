@@ -1,0 +1,30 @@
+icon: mdi:cctv
+title: Cameras
+cards:
+
+
+#iPhone1 Cam
+###############
+
+      - type: picture-glance
+        title: Chicken Coop
+        entities:
+          - switch.iphone1_torch
+        camera_image: camera.iphone1
+    
+#iPhone2 Cam
+###############
+      - type: picture-glance
+        title: Living Room
+        entities:
+          - entity: light.entrance_light
+            icon: mdi:ceiling-light
+          - entity: switch.floorlamp
+            icon: mdi:floor-lamp
+          - entity: light.hall_light
+            icon: mdi:ceiling-light
+          - entity: switch.stringlight
+            icon: mdi:led-off
+          - entity: light.living_room_light
+            icon: mdi:ceiling-light
+        camera_image: camera.iphone2

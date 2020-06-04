@@ -1,7 +1,7 @@
 ###################################
 # TIME-BASED OR ALARM AUTOMATIONS #
 ###################################
-- alias: "Porch On At Sunset"
+- alias: "TIME - Porch On At Sunset"
   trigger:
     platform: sun
     event: sunset
@@ -10,7 +10,7 @@
     service: homeassistant.turn_on
     entity_id: light.exterior
     
-- alias: "Porch Off At Night"
+- alias: "TIME - Porch Off At Night"
   trigger:
     platform: time
     at: "23:00:00"
@@ -18,7 +18,7 @@
     service: homeassistant.turn_off
     entity_id: light.exterior
     
-- alias: "Sunrise On BR Alarm"
+- alias: "ALARM - Sunrise On BR Alarm"
   trigger:
     - platform: numeric_state
       entity_id: sensor.br_alarm1_remaining
@@ -29,7 +29,7 @@
       data:
         entity_id: script.sunrise
         
-- alias: "Flash on LR Timer"
+- alias: "ALARM - Flash on LR Timer"
   trigger:
     - platform: numeric_state
       entity_id: sensor.lr_timer1_remaining
@@ -42,7 +42,7 @@
 ############################
 # MOTION-BASED AUTOMATIONS #
 ############################
-- alias: "Office Off No Motion"
+- alias: "MOTION - Office Off No Motion"
   trigger:
   - platform: state
     entity_id: binary_sensor.office_occupancy
@@ -54,7 +54,7 @@
   - service: homeassistant.turn_off
     entity_id: light.office
 
-- alias: "Office On Motion"
+- alias: "MOTION - Office On Motion"
   trigger:
   - platform: state
     entity_id: binary_sensor.office_occupancy
@@ -71,7 +71,7 @@
 ##########################
 
 #ON AWAY
-- alias: "All Off on Away"
+- alias: "HSTATE - All Off on Away"
   trigger:
     platform: state
     entity_id: input_select.house_status
@@ -80,19 +80,19 @@
   - service: scene.turn_on
     entity_id: scene.all_off
     
-- alias: "Set Climate on Away"
+- alias: "HSTATE - Set Climate on Away"
   trigger:
     platform: state
     entity_id: input_select.house_status
     to: 'Away'
   action:
-  - service: climate.set_away_mode
+  - service: climate.set_preset_mode
     data:
       entity_id: climate.living_room
-      away_mode: "true"
+      preset_mode: 'away'
 
 #ON ARRIVAL OR HOME
-- alias: "Bright on Arrival"
+- alias: "HSTATE - Bright on Arrival"
   trigger:
   - platform: state
     entity_id: input_select.house_status
@@ -106,7 +106,7 @@
   - service: scene.turn_on
     entity_id: scene.bright
     
-- alias: "Set Climate on Home"
+- alias: "HSTATE - Set Climate on Home"
   trigger:
     platform: state
     entity_id: input_select.house_status
@@ -115,9 +115,9 @@
   - service: climate.set_hold_mode
     data:
       entity_id: climate.living_room
-      hold_mode: "home"
+      hold_mode: 'home'
 
-- alias: "Set Climate While Home"
+- alias: "HSTATE - Set Climate While Home"
   trigger:
     - platform: template
       value_template: "{% if is_state_attr('climate.living_room', 'away_mode', 'on') %}true{% endif %}"
@@ -131,7 +131,7 @@
       away_mode: off
     
 #ON SLEEP
-- alias: "All Off on Asleep if no motion"
+- alias: "HSTATE - All Off on Asleep if no motion"
   trigger:
   - platform: state
     entity_id: input_select.house_status
@@ -144,7 +144,7 @@
   - service: scene.turn_on
     entity_id: scene.all_off
 
-- alias: "Set Climate on Asleep"
+- alias: "HSTATE - Set Climate on Asleep"
   trigger:
     platform: state
     entity_id: input_select.house_status
@@ -156,7 +156,7 @@
       hold_mode: "sleep"
       
 #ON VACATION
-- alias: "Set Climate Vacation"
+- alias: "HSTATE - Set Climate Vacation"
   trigger:
     platform: state
     entity_id: input_select.house_status

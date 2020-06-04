@@ -2,7 +2,12 @@
 # FRIENDLY NAMES #
 ##################
 group.all_devices:
-  hidden: false 
+  hidden: false
+  title: "All Devices"
+
+group.all_automations:
+  hidden: false
+  title: "All Automations"
 
 #Household
 sensor.nic_status:
@@ -14,3 +19,69 @@ sensor.wakeup_time:
   icon: mdi:alarm
 sensor.sleep_time:
   icon: mdi:sleep
+sensor.overall_sleep_time:
+  icon: mdi:sleep
+  friendly_name: Sleep Schedule
+
+sensor.device_count:
+  icon: mdi:cellphone-link
+sensor.automation_count:
+  icon: mdi:home-automation
+sensor.script_count:
+  icon: mdi:script
+sensor.switch_count:
+  icon: mdi:flash
+sensor.light_count:
+  icon: mdi:lightbulb
+sensor.light_on_count:
+  icon: mdi:lightbulb
+  
+sensor.house_status:
+  icon: mdi:home
+  friendly_name: House Status
+group.all_motion:
+  icon: mdi:walk
+  friendly_name: All Motion
+sensor.living_room_humidity:
+  friendly_name: House Humidity
+sensor.living_room_temperature:
+  friendly_name: House Temperature
+climate.living_room:
+  friendly_name: House Climate
+  
+  
+#Scenes and Scripts
+###################
+scene.all_off:
+  icon: mdi:power
+  friendly_name: "Off"
+scene.bright:
+  icon: mdi:brightness-5
+scene.warm:
+  icon: mdi:white-balance-incandescent
+script.cabin_scene:
+  friendly_name: Cabin
+  icon: mdi:fire
+scene.movie:
+  icon: mdi:movie-roll
+scene.social:
+  icon: mdi:lava-lamp
+scene.bedmode:
+  icon: mdi:hotel
+  
+light.entrance_light:
+  icon: mdi:ceiling-light
+  friendly_name: Entrance Light
+light.living_room_light:
+  icon: mdi:ceiling-light
+  friendly_name: Hanging Light
+light.hall_light:
+  icon: mdi:ceiling-light
+  friendly_name: Hall Light
+switch.stringlight:
+  icon: mdi:led-off
+  friendly_name: String Lights
+switch.floorlamp:
+  icon: mdi:floor-lamp
+  friendly_name: Floor Lamp
+

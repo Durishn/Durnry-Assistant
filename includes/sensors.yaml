@@ -5,18 +5,6 @@
   display_options:
     - 'time'
     - 'date'
-
-- platform: template
-  sensors:
-    local_time:
-      value_template: "{{as_timestamp(now()) | timestamp_custom('%-I:%M %p')}}"
-      entity_id: sensor.time
-    local_date:
-      value_template: "{{as_timestamp(now()) | timestamp_custom('%A %B %-d')}}"
-      entity_id: sensor.date
-    climate_combined:
-      value_template: "{{ state_attr('climate.living_room', 'target_temp_low') }}/{{ state_attr('climate.living_room', 'target_temp_high') }}"
-      entity_id: climate.living_room
     
 ###########
 # DarkSky #
@@ -32,63 +20,10 @@
     - temperature
     - temperature_high
     - temperature_low
-    - apparent_temperature
+#    - apparent_temperature
     - precip_probability
     - humidity
-    - visibility
-    
-################
-# GHOME ALARMS #
-################
-- platform: rest
-  name: LRHomeAlarms
-  json_attributes:
-    - timer
-    - alarm
-  resource: http://192.168.0.25:8008/setup/assistant/alarms
-  value_template: '{% if value_json.alarm[0] is defined %}{{ value_json.alarm[0].id }}{% endif %}'
-  force_update: true
-- platform: template
-  sensors:
-    lr_timer1_remaining:
-      value_template: '{% if states.sensor.lrhomealarms.attributes.timer[0] is defined %}{{ ((states.sensor.lrhomealarms.attributes.timer[0].fire_time + states.sensor.lrhomealarms.attributes.timer[0].original_duration) / 1000) - as_timestamp(now()) | int }}{% endif %}'
-      unit_of_measurement: s
-      entity_id: sensor.lrhomealarms
-    lr_timer1_end_time:
-      value_template: '{% if states.sensor.lrhomealarms.attributes.timer[0] is defined %}{{ ((states.sensor.lrhomealarms.attributes.timer[0].fire_time + states.sensor.lrhomealarms.attributes.timer[0].original_duration) / 1000) | int }}{% endif %}'
-      entity_id: sensor.lrhomealarms
-    lr_alarm1_time:
-      value_template: "{% if states.sensor.lrhomealarms.attributes.alarm[0] is defined %}{{ states.sensor.lrhomealarms.attributes.alarm[0].time_pattern | regex_replace('..hour..|,|.minute.|..second.....') }}{% endif %}"
-      entity_id: sensor.lrhomealarms
-    lr_alarm1_remaining:
-      value_template: "{% if states.sensor.lrhomealarms.attributes.alarm[0] is defined %}{{ (((states.sensor.lrhomealarms.attributes.alarm[0].fire_time / 1000) - as_timestamp(now())) /60) | round(0)}}{% endif %}"
-      entity_id: sensor.lrhomealarms
-      unit_of_measurement: "min"
-      
-- platform: rest
-  name: BRHomeAlarms
-  json_attributes:
-    - timer
-    - alarm
-  resource: http://192.168.0.34:8008/setup/assistant/alarms
-  value_template: '{% if value_json.alarm[0] is defined %}{{ value_json.alarm[0].id }}{% endif %}'
-  force_update: true
-- platform: template
-  sensors:
-    br_timer1_remaining:
-      value_template: '{% if states.sensor.brhomealarms.attributes.timer[0] is defined %}{{ ((states.sensor.brhomealarms.attributes.timer[0].fire_time + states.sensor.brhomealarms.attributes.timer[0].original_duration) / 1000) - as_timestamp(now()) | int }}{% endif %}'
-      unit_of_measurement: s
-      entity_id: sensor.brhomealarms
-    br_timer1_end_time:
-      value_template: '{% if states.sensor.brhomealarms.attributes.timer[0] is defined %}{{ ((states.sensor.brhomealarms.attributes.timer[0].fire_time + states.sensor.brhomealarms.attributes.timer[0].original_duration) / 1000) | int }}{% endif %}'
-      entity_id: sensor.brhomealarms
-    br_alarm1_time:
-      value_template: "{% if states.sensor.brhomealarms.attributes.alarm[0] is defined %}{{ states.sensor.brhomealarms.attributes.alarm[0].time_pattern | regex_replace('..hour..|,|.minute.|..second.....') }}{% endif %}"
-      entity_id: sensor.brhomealarms
-    br_alarm1_remaining:
-      value_template: "{% if states.sensor.brhomealarms.attributes.alarm[0] is defined %}{{ (((states.sensor.brhomealarms.attributes.alarm[0].fire_time / 1000) - as_timestamp(now())) /60) | round(0)}}{% endif %}"
-      entity_id: sensor.brhomealarms
-      unit_of_measurement: "min"
+#    - visibility
 
 #################
 # REST COMMANDS #
@@ -109,14 +44,23 @@
     - type: disk_use_percent
       arg: /
     - type: last_boot
-    - type: memory_free
+#    - type: memory_free
     - type: processor_use
 
 ###############
-# HOUSE MODES #
+# SIMPLIFIERS #
 ###############
 - platform: template
   sensors:
+    local_time:
+      value_template: "{{as_timestamp(now()) | timestamp_custom('%-I:%M %p')}}"
+      entity_id: sensor.time
+    local_date:
+      value_template: "{{as_timestamp(now()) | timestamp_custom('%A %B %-d')}}"
+      entity_id: sensor.date
+    climate_combined:
+      value_template: "{{ state_attr('climate.living_room', 'target_temp_low') }}/{{ state_attr('climate.living_room', 'target_temp_high') }}"
+      entity_id: climate.living_room
     nic_status:
       value_template: '{{ states.input_select.nic_status.state }}'
       friendly_name: 'Nic'
@@ -132,21 +76,97 @@
 
 - platform: template
   sensors:
-     wakeup_time:
-          friendly_name: 'Wake Time'
-          value_template: >-
-              {{ "%0.02d:%0.02d" | format(states("input_number.wakeup_time") | int, (((states("input_number.wakeup_time") | float)*100 | int) -  ((states("input_number.wakeup_time") | int)*100))/1.66666666    ) }}
-              
+    wakeup_time:
+      friendly_name: 'Wake Time'
+      value_template: >-
+          {{ "%0.02d:%0.02d" | format(states("input_number.wakeup_time") | int, (((states("input_number.wakeup_time") | float)*100 | int) -  ((states("input_number.wakeup_time") | int)*100))/1.66666666    ) }}
+    sleep_time:
+      friendly_name: 'Sleep Time'
+      value_template: >-
+          {{ "%0.02d:%0.02d" | format(states("input_number.sleep_time") | int, (((states("input_number.sleep_time") | float)*100 | int) -  ((states("input_number.sleep_time") | int)*100))/1.66666666  ) }}
+    overall_sleep_time:
+      friendly_name: 'Sleep Time'
+      value_template: >-
+          {{ "%0.02d:%0.02d - %0.02d:%0.02d" |  format(states("input_number.sleep_time") | int, (((states("input_number.sleep_time") | float)*100 | int) -  ((states("input_number.sleep_time") | int)*100))/1.66666666, states("input_number.wakeup_time") | int, (((states("input_number.wakeup_time") | float)*100 | int) -  ((states("input_number.wakeup_time") | int)*100))/1.66666666  ) }}
+
 - platform: template
   sensors:
-     sleep_time:
-          friendly_name: 'Sleep Time'
-          value_template: >-
-              {{ "%0.02d:%0.02d" | format(states("input_number.sleep_time") | int, (((states("input_number.sleep_time") | float)*100 | int) -  ((states("input_number.sleep_time") | int)*100))/1.66666666  ) }}
-              
-- platform: template
-  sensors:
-     overall_sleep_time:
-          friendly_name: 'Sleep Time'
-          value_template: >-
-              {{ "%0.02d:%0.02d - %0.02d:%0.02d" |  format(states("input_number.sleep_time") | int, (((states("input_number.sleep_time") | float)*100 | int) -  ((states("input_number.sleep_time") | int)*100))/1.66666666, states("input_number.wakeup_time") | int, (((states("input_number.wakeup_time") | float)*100 | int) -  ((states("input_number.wakeup_time") | int)*100))/1.66666666  ) }}
+    device_count:
+      value_template: >-
+         {{ states | selectattr('entity_id','in',state_attr('group.all_devices','entity_id')) | selectattr('state','eq','home') | list | count }}
+      friendly_name: 'Devices At Home'
+    script_count:
+      value_template: >-
+         {{ states | selectattr('entity_id','in',state_attr('group.all_scripts','entity_id')) | list | count }}
+      friendly_name: 'Scripts'
+    automation_count:
+      value_template: >-
+         {{ states | selectattr('entity_id','in',state_attr('group.all_automations','entity_id')) | list | count }}
+      friendly_name: 'Automations'
+    light_count:
+      value_template: >-
+         {{ states | selectattr('entity_id','in',state_attr('group.all_lights','entity_id')) | list | count }}
+      friendly_name: 'Lights'
+    light_on_count:
+      value_template: >-
+         {{ states | selectattr('entity_id','in',state_attr('group.all_lights','entity_id')) | selectattr('state','eq','on') | list | count }}
+      friendly_name: 'Lights On'
+    switch_count:
+      value_template: >-
+         {{ states | selectattr('entity_id','in',state_attr('group.all_switches','entity_id')) | list | count }}
+      friendly_name: 'Switches'
+      
+################################################################
+# GHOME ALARMS - Deprecated due to recently closed local API :(#
+################################################################
+#- platform: rest
+#  name: LRHomeAlarms
+#  json_attributes:
+#    - timer
+#    - alarm
+#  resource: http://192.168.0.25:8008/setup/assistant/alarms
+#  value_template: '{% if value_json.alarm[0] is defined %}{{ value_json.alarm[0].id }}{% endif %}'
+#  force_update: true
+  
+#- platform: template
+#  sensors:
+#    lr_timer1_remaining:
+#      value_template: '{% if states.sensor.lrhomealarms.attributes.timer[0] is defined %}{{ ((states.sensor.lrhomealarms.attributes.timer[0].fire_time + states.sensor.lrhomealarms.attributes.timer[0].original_duration) / 1000) - as_timestamp(now()) | int }}{% endif %}'
+#      unit_of_measurement: s
+#      entity_id: sensor.lrhomealarms
+#    lr_timer1_end_time:
+#      value_template: '{% if states.sensor.lrhomealarms.attributes.timer[0] is defined %}{{ ((states.sensor.lrhomealarms.attributes.timer[0].fire_time + states.sensor.lrhomealarms.attributes.timer[0].original_duration) / 1000) | int }}{% endif %}'
+#      entity_id: sensor.lrhomealarms
+#    lr_alarm1_time:
+#      value_template: "{% if states.sensor.lrhomealarms.attributes.alarm[0] is defined %}{{ states.sensor.lrhomealarms.attributes.alarm[0].time_pattern | regex_replace('..hour..|,|.minute.|..second.....') }}{% endif %}"
+#      entity_id: sensor.lrhomealarms
+#    lr_alarm1_remaining:
+#      value_template: "{% if states.sensor.lrhomealarms.attributes.alarm[0] is defined %}{{ (((states.sensor.lrhomealarms.attributes.alarm[0].fire_time / 1000) - as_timestamp(now())) /60) | round(0)}}{% endif %}"
+#      entity_id: sensor.lrhomealarms
+#      unit_of_measurement: "min"
+      
+#- platform: rest
+#  name: BRHomeAlarms
+#  json_attributes:
+#    - timer
+#    - alarm
+#  resource: http://192.168.0.34:8008/setup/assistant/alarms
+#  value_template: '{% if value_json.alarm[0] is defined %}{{ value_json.alarm[0].id }}{% endif %}'
+#  force_update: true
+  
+#- platform: template
+#  sensors:
+#    br_timer1_remaining:
+#      value_template: '{% if states.sensor.brhomealarms.attributes.timer[0] is defined %}{{ ((states.sensor.brhomealarms.attributes.timer[0].fire_time + states.sensor.brhomealarms.attributes.timer[0].original_duration) / 1000) - as_timestamp(now()) | int }}{% endif %}'
+#      unit_of_measurement: s
+#      entity_id: sensor.brhomealarms
+#    br_timer1_end_time:
+#      value_template: '{% if states.sensor.brhomealarms.attributes.timer[0] is defined %}{{ ((states.sensor.brhomealarms.attributes.timer[0].fire_time + states.sensor.brhomealarms.attributes.timer[0].original_duration) / 1000) | int }}{% endif %}'
+#      entity_id: sensor.brhomealarms
+#    br_alarm1_time:
+#      value_template: "{% if states.sensor.brhomealarms.attributes.alarm[0] is defined %}{{ states.sensor.brhomealarms.attributes.alarm[0].time_pattern | regex_replace('..hour..|,|.minute.|..second.....') }}{% endif %}"
+#      entity_id: sensor.brhomealarms
+#    br_alarm1_remaining:
+#      value_template: "{% if states.sensor.brhomealarms.attributes.alarm[0] is defined %}{{ (((states.sensor.brhomealarms.attributes.alarm[0].fire_time / 1000) - as_timestamp(now())) /60) | round(0)}}{% endif %}"
+#      entity_id: sensor.brhomealarms
+#      unit_of_measurement: "min"
