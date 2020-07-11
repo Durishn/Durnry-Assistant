@@ -1,0 +1,19 @@
+order:
+  - item: overview
+    hide: true
+  - item: control panel
+  - item: floorplan
+  - item: calendar
+  - item: history
+  - item: logbook
+    user: nic durish
+  - item: community store
+    bottom: true
+  - item: terminal
+    bottom: true
+  - item: developer tools
+    bottom: true
+  - item: supervisor
+    bottom: true
+  - item: configuration
+    bottom: true

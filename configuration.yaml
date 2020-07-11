@@ -1,0 +1,186 @@
+#################################
+# filename: configuration.yaml
+# author: Nic Durish
+# created: August 2019
+# updated: May 2020
+#################################
+
+homeassistant:
+  customize: !include customize.yaml
+
+#http:
+#  base_url: !secret site_url
+#  ssl_certificate: /ssl/fullchain.pem
+#  ssl_key: /ssl/privkey.pem
+
+duckdns:
+  domain: YOUR_SUBDOMAIN
+  access_token: YOUR_ACCESS_TOKEN
+
+# COMPONENTS
+##############
+tts:
+  - platform: google_translate
+    service_name: google_say
+
+speedtestdotnet:
+  scan_interval:
+    minutes: 5
+
+device_tracker:
+  - platform: hitron_coda
+    host: 192.168.0.1
+    username: !secret wifi_user
+    password: !secret wifi_pass
+    type: rogers
+
+google:
+  client_id: !secret google_cal_id
+  client_secret: !secret google_cal_secret
+
+spotify:
+  client_id: !secret spotify_id
+  client_secret: !secret spotify_secret
+
+tplink:
+  discovery: true
+  switch:
+    - host: 192.168.0.20
+    - host: 192.168.0.21
+
+ecobee:
+  api_key: !secret ecobee_key
+
+
+# INPUTS AND BAYESION SENSORS
+####################
+input_select:
+  house_status:
+    name: House Status
+    icon: mdi:home
+    options:
+      - Home
+      - Asleep
+      - Away
+      - Vacation
+
+input_boolean:
+  guest_mode:
+    name: Guest Mode
+    icon: mdi:account-plus
+    initial: off
+
+# USER INTERFACE
+###########
+lovelace:
+  mode: yaml
+  resources:
+  - url: /hacsfiles/custom-header/custom-header.js
+    type: module
+  - url: /hacsfiles/vertical-stack-in-card/vertical-stack-in-card.js
+    type: module
+  - url: /hacsfiles/lovelace-slider-entity-row/slider-entity-row.js
+    type: module
+  - url: /hacsfiles/mini-media-player/mini-media-player-bundle.js
+    type: module
+  - url: /hacsfiles/calendar-card/calendar-card.js
+    type: module
+  - url: /hacsfiles/lovelace-fold-entity-row/fold-entity-row.js
+    type: module
+  - url: /hacsfiles/simple-thermostat/simple-thermostat.js
+    type: module
+  - url: /hacsfiles/lovelace-auto-entities/auto-entities.js
+    type: module
+
+  dashboards:
+    dash-controlpanel:
+      mode: yaml
+      filename: dashControlPanel.yaml
+      title: Control Panel
+      icon: mdi:view-dashboard
+      show_in_sidebar: true
+      require_admin: false
+    dash-floorplan:
+      mode: yaml
+      filename: dashFloorplan.yaml
+      title: Floorplan
+      icon: mdi:floor-plan
+      show_in_sidebar: true
+      require_admin: false
+
+
+# SIDEBAR
+###########
+frontend:
+  extra_module_url:
+    - /hacsfiles/custom-sidebar/custom-sidebar.js
+  themes: !include includes/themes.yaml
+#map:
+
+logbook:
+  # exclude:
+  #   domains:
+  #     - sensor
+
+  # include:
+  #   entities:
+  #   - sensor.house_status
+  #   - sensor.nic_status
+  #   - sensor.emma_status
+  #   - sensor.guest_status
+  #
+  #   - binary_sensor.bedroom_occupancy
+  #   - binary_sensor.office_occupancy
+  #
+  #   - light.exterior
+  #   - light.living_room
+  #   - light.bedroom
+  #   - light.office
+  #   domains:
+  #     - devices
+  #     - script
+
+history:
+  use_include_order: True
+  include:
+    entities:
+      - sensor.house_status
+      - person.nic_durish
+      - person.emma_henry
+      - person.mike_hager
+      - sensor.guest_status
+      - sensor.living_room_temperature
+      - sensor.living_room_humidity
+      - sensor.bedroom_temperature
+      - sensor.sensor2_temperature
+      - climate.living_room
+      - sensor.speedtest_download
+      - sensor.speedtest_upload
+      - sensor.plex_durnydrive
+      - weather.lawrence
+      - sensor.weather_temperature
+    domains:
+      - light
+      - switch
+      - device
+  exclude:
+    entities:
+      - light.exterior
+      - light.office
+      - light.bedroom_1
+      - light.bedroom_2
+      - light.living_room
+
+config:
+
+recorder:
+  purge_keep_days: 60
+
+
+# INCLUDES
+############
+group: !include includes/groups.yaml
+automation: !include includes/automations.yaml
+script: !include includes/scripts.yaml
+#scene: !include includes/scenes.yaml
+sensor: !include includes/sensors.yaml
