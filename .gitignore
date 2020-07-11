@@ -52,6 +52,7 @@ google_calendars.yaml
 home-assistant*
 *.conf
 .translations
+.pip_progress
 
 .storage/*
 !.storage/lovelace*

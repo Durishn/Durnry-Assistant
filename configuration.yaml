@@ -149,6 +149,11 @@ history:
       - person.emma_henry
       - person.mike_hager
       - sensor.guest_status
+
+      - sensor.ups_battery_charge
+      - sensor.ups_load
+      - sensor.ups_status
+
       - sensor.living_room_temperature
       - sensor.living_room_humidity
       - sensor.bedroom_temperature
