@@ -1,5 +1,5 @@
 
-# LawrenceAssist
+# Durnry Assistant
 version: 3.0
 date: 19.07.31
 hardware: Raspberry Pi 2 B
