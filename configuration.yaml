@@ -2,20 +2,19 @@
 # filename: configuration.yaml
 # author: Nic Durish
 # created: August 2019
-# updated: May 2020
+# updated: January 2021
 #################################
 
+default_config:
+
 homeassistant:
+  # name: Lawrence
+  # latitude: !secret latitude
+  # longitude: !secret longitude
+  # unit_system: metric
   customize: !include customize.yaml
 
-#http:
-#  base_url: !secret site_url
-#  ssl_certificate: /ssl/fullchain.pem
-#  ssl_key: /ssl/privkey.pem
-
-duckdns:
-  domain: YOUR_SUBDOMAIN
-  access_token: YOUR_ACCESS_TOKEN
+browser_mod:
 
 # COMPONENTS
 ##############
@@ -38,6 +37,13 @@ google:
   client_id: !secret google_cal_id
   client_secret: !secret google_cal_secret
 
+ecobee:
+  api_key: !secret ecobee_key
+
+hue:
+  bridges:
+    - host: 192.168.0.14
+
 spotify:
   client_id: !secret spotify_id
   client_secret: !secret spotify_secret
@@ -50,6 +56,15 @@ tplink:
 
 ecobee:
   api_key: !secret ecobee_key
+
+# INCLUDES
+####################
+sensor: !include includes/sensors.yaml
+script: !include includes/scripts.yaml
+# group: !include includes/groups.yaml
+automation: !include includes/automations.yaml
+scene: !include includes/scenes.yaml
+light: !include includes/light-groups.yaml
 
 
 # INPUTS AND BAYESION SENSORS
@@ -73,48 +88,12 @@ input_boolean:
 # USER INTERFACE
 ###########
 lovelace:
-  mode: yaml
-  resources:
-  - url: /hacsfiles/custom-header/custom-header.js
-    type: module
-  - url: /hacsfiles/vertical-stack-in-card/vertical-stack-in-card.js
-    type: module
-  - url: /hacsfiles/lovelace-slider-entity-row/slider-entity-row.js
-    type: module
-  - url: /hacsfiles/mini-media-player/mini-media-player-bundle.js
-    type: module
-  - url: /hacsfiles/calendar-card/calendar-card.js
-    type: module
-  - url: /hacsfiles/lovelace-fold-entity-row/fold-entity-row.js
-    type: module
-  - url: /hacsfiles/simple-thermostat/simple-thermostat.js
-    type: module
-  - url: /hacsfiles/lovelace-auto-entities/auto-entities.js
-    type: module
+  mode: storage
 
-  dashboards:
-    dash-controlpanel:
-      mode: yaml
-      filename: dashControlPanel.yaml
-      title: Control Panel
-      icon: mdi:view-dashboard
-      show_in_sidebar: true
-      require_admin: false
-    dash-floorplan:
-      mode: yaml
-      filename: dashFloorplan.yaml
-      title: Floorplan
-      icon: mdi:floor-plan
-      show_in_sidebar: true
-      require_admin: false
-
-
-# SIDEBAR
-###########
 frontend:
   extra_module_url:
     - /hacsfiles/custom-sidebar/custom-sidebar.js
-  themes: !include includes/themes.yaml
+  themes: !include_dir_merge_named themes
 #map:
 
 logbook:
@@ -145,10 +124,10 @@ history:
   include:
     entities:
       - sensor.house_status
+      - sensor.guest_status
+
       - person.nic_durish
       - person.emma_henry
-      - person.mike_hager
-      - sensor.guest_status
 
       - sensor.ups_battery_charge
       - sensor.ups_load
@@ -179,13 +158,4 @@ history:
 config:
 
 recorder:
-  purge_keep_days: 60
-
-
-# INCLUDES
-############
-group: !include includes/groups.yaml
-automation: !include includes/automations.yaml
-script: !include includes/scripts.yaml
-#scene: !include includes/scenes.yaml
-sensor: !include includes/sensors.yaml
+  purge_keep_days: 365

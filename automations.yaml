@@ -1,0 +1,55 @@
+- id: '1610556445604'
+  alias: New Automation
+  description: ''
+  trigger:
+  - device_id: 50ea611f77c84de492a0ebe5dd4260c7
+    domain: hue
+    platform: device
+    subtype: turn_off
+    type: remote_button_short_release
+  - device_id: 50ea611f77c84de492a0ebe5dd4260c7
+    domain: hue
+    platform: device
+    subtype: turn_off
+    type: remote_button_long_release
+  condition: []
+  action:
+  - data: {}
+    entity_id: switch.plug_3
+    service: switch.toggle
+- id: '1610558289513'
+  alias: New Automation
+  description: ''
+  trigger:
+  - entity_id: sensor.office_dimswitch
+    platform: state
+    to: '''4_click_up'''
+  condition: []
+  action:
+  - data: {}
+    entity_id: switch.plug_3
+    service: switch.turn_off
+- id: '1610558341470'
+  alias: Test Automation
+  description: ''
+  trigger:
+  - entity_id: sensor.office_dimswitch
+    platform: state
+    to: 4_click_up
+  condition: []
+  action:
+  - data: {}
+    entity_id: switch.plug_3
+    service: switch.turn_off
+- id: '1610558560094'
+  alias: Test Automation
+  description: ''
+  trigger:
+  - entity_id: sensor.office_dimswitch
+    platform: state
+    to: 4_click_up
+  condition: []
+  action:
+  - data: {}
+    entity_id: switch.plug_3
+    service: switch.turn_off

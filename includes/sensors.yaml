@@ -8,15 +8,17 @@
 ###############
 - platform: template
   sensors:
-    climate_combined:
-      value_template: "{{ state_attr('climate.living_room', 'target_temp_low') }}/{{ state_attr('climate.living_room', 'target_temp_high') }}"
-      entity_id: climate.living_room
     house_status:
       value_template: '{{ states.input_select.house_status.state }}'
       friendly_name: 'House Status'
     guest_status:
       value_template: '{{ states.input_boolean.guest_mode.state }}'
       friendly_name: 'Guest Mode'
+
+    ups_watts:
+      value_template: '{{ (states("sensor.ups_load") | int) * 4 }} W'
+      icon_template: mdi:flash
+      friendly_name: 'UPS Watts'
     # local_time:
     #   value_template: "{{as_timestamp(now()) | timestamp_custom('%-I:%M %p')}}"
     #   entity_id: sensor.time
@@ -24,36 +26,85 @@
     #   value_template: "{{as_timestamp(now()) | timestamp_custom('%A %B %-d')}}"
     #   entity_id: sensor.date
 
-
-
-- platform: template
-  sensors:
-    script_count:
-      value_template: "{{ states | selectattr('entity_id','in',state_attr('group.all_scripts','entity_id')) | list | count }}"
-      friendly_name: 'Scripts'
-    automation_count:
-      value_template: "{{ states | selectattr('entity_id','in',state_attr('group.all_automations','entity_id')) | list | count }}"
-      friendly_name: 'Automations'
-    light_count:
-      value_template: "{{ states | selectattr('entity_id','in',state_attr('group.all_lights','entity_id')) | list | count }}"
-      friendly_name: 'Lights'
-    light_on_count:
-      entity_id: sensor.time
-      value_template: "{{ states['light'] | selectattr('state','eq', 'on') | list | count }}"
-    switch_count:
-      value_template: "{{ states | selectattr('entity_id','in',state_attr('group.all_switches','entity_id')) | list | count }}"
-      friendly_name: 'Switches'
-      unit_of_measurement: "min"
-    switch_on_count:
-      entity_id: sensor.time
-      value_template: "{{ states['switch'] | selectattr('state','eq', 'on') | list | count }}"
-
+- platform: synology_dsm
+  host: !secret dsm_ip
+  username: !secret dsm_id
+  password: !secret dsm_pass
+  monitored_conditions:
+    - cpu_total_load
+    - memory_real_usage
+    - network_up
+    - network_down
+    - disk_status
+    - volume_size_total
+    - volume_size_used
+    - volume_percentage_used
+    - volume_disk_temp_avg
 
 #################
 # REST COMMANDS #
 #################
-# - platform: rest
-#   resource: https://pypi.python.org/pypi/homeassistant/json
-#   name: HA upstream
-#   value_template: '{{ value_json.info.version }}'
-#   scan_interval: 3600
+- platform: rest
+  resource: https://pypi.python.org/pypi/homeassistant/json
+  name: HA upstream
+  value_template: '{{ value_json.info.version }}'
+  scan_interval: 3600
+
+#################
+# History Stats #
+#################
+- platform: history_stats
+  name: Quarantine meter Nic
+  entity_id: person.nic_durish
+  state: "home"
+  type: ratio
+  duration:
+    days: 7
+  end: "{{ now() }}"
+
+- platform: history_stats
+  name: Quarantine meter Emma
+  entity_id: person.emma_henry
+  state: "home"
+  type: ratio
+  duration:
+    days: 7
+  end: "{{ now() }}"
+
+- platform: history_stats
+  name: Quarantine meter Nic times left
+  entity_id: person.nic_durish
+  state: "home"
+  type: count
+  duration:
+    days: 7
+  end: "{{ now() }}"
+
+- platform: history_stats
+  name: Quarantine meter Emma times left
+  entity_id: person.emma_henry
+  state: "home"
+  type: count
+  duration:
+    days: 7
+  end: "{{ now() }}"
+
+#################
+# Github Stats #
+#################
+- platform: github
+  access_token: !secret hass_sensor_gh_token
+  repositories:
+    - path: "Durishn/durnry-assistant"
+    - path: "Durishn/durishn.github.io"
+
+- platform: steam_online
+  api_key: !secret steam_key
+  accounts:
+    - 76561198119356107
+
+
+- platform: xbox_live
+  api_key: !secret xbox_key
+  xuid:
+    - 2535444147547790

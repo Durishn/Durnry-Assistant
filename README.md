@@ -67,5 +67,11 @@ The following repo contains the configuration files for [Home Assistant](https:/
 - 3 Coloured Hue Lightbulbs & Hub
 - Ecobee Thermostat 2.0 with 2 sensors
 
+#Inspirations
+
+- https://github.com/matt8707/hass-config
+- https://github.com/basnijholt/home-assistant-config/
+
+
 # Final Notes
 Security: I am far from a security expert, however, I have taken some important steps and considerations into account in this project and in my cyber-life in general. Make sure you are only serving your assistant over https:// and using a secure password with a limited number of attempts and blocking IPs. Anything that doesn't need to be connected to the internet isn't. Keep systems seperate with tight permissions and seperate users. Test your security, and test it often.

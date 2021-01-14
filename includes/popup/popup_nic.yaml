@@ -1,0 +1,96 @@
+action: call-service
+service: browser_mod.popup
+service_data:
+  title: Mattias
+  deviceID: this
+  style:
+    .: |
+      :host .content {
+        height: 675px;
+      }
+  card:
+    type: custom:stack-in-card
+    cards:
+      - type: entities
+        state_color: true
+        show_header_toggle: false
+        entities:
+
+          - entity: person.mattias
+            secondary_info: last-changed
+
+          - type: custom:hui-element
+            card_type: history-graph
+            entities: [entity: person.mattias]
+            hours_to_show: 24
+            refresh_interval: 0
+
+          - type: custom:hui-element
+            card_type: glance
+            show_state: false
+            style:
+              .: |
+                ha-card {
+                  background: none;
+                  box-shadow: none;
+                }
+              "ha-card>div>div:nth-child(1)":
+                $:
+                  "state-badge":
+                    $: |
+                      ha-icon {
+                        color: {{ '#3182b7' if is_state('device_tracker.mattias', 'home') else '#FFFFFF20' }};
+                      }
+              "ha-card>div>div:nth-child(2)":
+                $:
+                  "state-badge":
+                    $: |
+                      ha-icon {
+                        color: {{ '#3182b7' if is_state('device_tracker.mattias_bluetooth', 'home') else '#FFFFFF20' }};
+                      }
+              "ha-card>div>div:nth-child(3)":
+                $:
+                  "state-badge":
+                    $: |
+                      ha-icon {
+                        color: {{ '#3182b7' if is_state('device_tracker.iphone', 'home') else '#FFFFFF20' }};
+                      }
+            entities:
+
+              - entity: device_tracker.mattias
+                name: Router
+                icon: mdi:wifi
+
+              - entity: device_tracker.mattias_bluetooth
+                name: Bluetooth
+                icon: mdi:bluetooth
+
+              - entity: device_tracker.iphone
+                name: Position
+                icon: custom:iphone-modern
+
+          - type: custom:hui-element
+            card_type: horizontal-stack
+            style: |
+              #root {
+                justify-content: space-evenly;
+                margin: -1em 0 0 0;
+              }
+            cards:
+
+            - type: custom:button-card
+              name: >
+                <ha-icon icon="mdi:volume-high"></ha-icon> Spela upp ljud på iPhone X
+              tap_action:
+                action: call-service
+                service: script.mattias_find_my_iphone
+              template: name_action
+              styles:
+                card:
+                  [background: none, border-radius: none]
+
+      - type: custom:hui-element
+        card_type: map
+        class: map
+        entities: [device_tracker.iphone]
+        default_zoom: 15
