@@ -39,7 +39,11 @@ Thumbs.db
 
 # Project Specific Files #
 ##########################
-*Archived/
+*Archived
+!Archived/
+custom_components/
+www/community/
+config/
 tts/
 deps/
 known_devices.yaml
