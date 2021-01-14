@@ -4,6 +4,8 @@
   monitored_conditions:
     - temperature
 
+- platform: version
+
 # SIMPLIFIERS
 ###############
 - platform: template

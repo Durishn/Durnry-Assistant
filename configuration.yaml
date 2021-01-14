@@ -8,10 +8,6 @@
 default_config:
 
 homeassistant:
-  # name: Lawrence
-  # latitude: !secret latitude
-  # longitude: !secret longitude
-  # unit_system: metric
   customize: !include customize.yaml
   whitelist_external_dirs:
     - /config/.storage
@@ -30,7 +26,7 @@ speedtestdotnet:
 
 device_tracker:
   - platform: hitron_coda
-    host: 192.168.0.1
+    url: 192.168.0.1
     username: !secret wifi_user
     password: !secret wifi_pass
     type: rogers
@@ -56,15 +52,12 @@ tplink:
     - host: 192.168.0.20
     - host: 192.168.0.21
 
-ecobee:
-  api_key: !secret ecobee_key
-
 # INCLUDES
 ####################
 sensor: !include includes/sensors.yaml
 script: !include includes/scripts.yaml
-# group: !include includes/groups.yaml
-automation: !include includes/automations.yaml
+automation manual: !include_dir_merge_list includes/automations/
+automation ui: !include ui_includes/automations.yaml
 scene: !include includes/scenes.yaml
 light: !include includes/light-groups.yaml
 

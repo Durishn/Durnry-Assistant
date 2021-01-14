@@ -855,6 +855,8 @@ views:
       type: custom:mini-graph-card
     - entities:
       - entity: sensor.ha_upstream
+        name: HA Upstream
+      - entity: sensor.current_version
         name: HA Version
       type: glance
     type: custom:vertical-stack-in-card

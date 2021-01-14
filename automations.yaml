@@ -1,55 +1,88 @@
-- id: '1610556445604'
-  alias: New Automation
+- id: '1610651900649'
+  alias: Turn off the lights when I leave home
   description: ''
   trigger:
-  - device_id: 50ea611f77c84de492a0ebe5dd4260c7
-    domain: hue
-    platform: device
-    subtype: turn_off
-    type: remote_button_short_release
-  - device_id: 50ea611f77c84de492a0ebe5dd4260c7
-    domain: hue
-    platform: device
-    subtype: turn_off
-    type: remote_button_long_release
+  - entity_id: person.nic_durish
+    event: leave
+    platform: zone
+    zone: zone.home
   condition: []
   action:
-  - data: {}
-    entity_id: switch.plug_3
-    service: switch.toggle
-- id: '1610558289513'
-  alias: New Automation
+  - device_id: b43ca727f6fa4b4c86a6ec1cfd75c645
+    domain: light
+    entity_id: light.office_lamp
+    type: turn_off
+  - device_id: 3d66edf211f24c6eb3e0592615e4a883
+    domain: light
+    entity_id: light.office_light
+    type: turn_off
+  - device_id: 0fa69d0da9e74a7b954f517f6d48d6a3
+    domain: light
+    entity_id: light.desk_backlight
+    type: turn_off
+- id: '1610652596764'
+  alias: Turn off the lights when I leave home
   description: ''
   trigger:
-  - entity_id: sensor.office_dimswitch
-    platform: state
-    to: '''4_click_up'''
+  - entity_id: person.nic_durish
+    event: leave
+    platform: zone
+    zone: zone.home
   condition: []
   action:
-  - data: {}
-    entity_id: switch.plug_3
-    service: switch.turn_off
-- id: '1610558341470'
-  alias: Test Automation
+  - device_id: b43ca727f6fa4b4c86a6ec1cfd75c645
+    domain: light
+    entity_id: light.office_lamp
+    type: turn_off
+  - device_id: 3d66edf211f24c6eb3e0592615e4a883
+    domain: light
+    entity_id: light.office_light
+    type: turn_off
+  - device_id: 0fa69d0da9e74a7b954f517f6d48d6a3
+    domain: light
+    entity_id: light.desk_backlight
+    type: turn_off
+- id: '1610652782555'
+  alias: Turn off the lights when I leave home
   description: ''
   trigger:
-  - entity_id: sensor.office_dimswitch
-    platform: state
-    to: 4_click_up
+  - entity_id: person.nic_durish
+    event: leave
+    platform: zone
+    zone: zone.home
   condition: []
   action:
-  - data: {}
-    entity_id: switch.plug_3
-    service: switch.turn_off
-- id: '1610558560094'
-  alias: Test Automation
+  - device_id: b43ca727f6fa4b4c86a6ec1cfd75c645
+    domain: light
+    entity_id: light.office_lamp
+    type: turn_off
+  - device_id: 3d66edf211f24c6eb3e0592615e4a883
+    domain: light
+    entity_id: light.office_light
+    type: turn_off
+  - device_id: 0fa69d0da9e74a7b954f517f6d48d6a3
+    domain: light
+    entity_id: light.desk_backlight
+    type: turn_off
+- id: '1610653037912'
+  alias: Turn off the lights when I leave home
   description: ''
   trigger:
-  - entity_id: sensor.office_dimswitch
-    platform: state
-    to: 4_click_up
+  - entity_id: person.nic_durish
+    event: leave
+    platform: zone
+    zone: zone.home
   condition: []
   action:
-  - data: {}
-    entity_id: switch.plug_3
-    service: switch.turn_off
+  - device_id: b43ca727f6fa4b4c86a6ec1cfd75c645
+    domain: light
+    entity_id: light.office_lamp
+    type: turn_off
+  - device_id: 3d66edf211f24c6eb3e0592615e4a883
+    domain: light
+    entity_id: light.office_light
+    type: turn_off
+  - device_id: 0fa69d0da9e74a7b954f517f6d48d6a3
+    domain: light
+    entity_id: light.desk_backlight
+    type: turn_off

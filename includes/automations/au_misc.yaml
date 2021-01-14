@@ -1,0 +1,8 @@
+- alias: "Convert Lovelace configuration to yaml"
+  trigger:
+    platform: event
+    event_type: folder_watcher
+    event_data:
+      event_type: modified
+  action:
+    service: shell_command.llconvert

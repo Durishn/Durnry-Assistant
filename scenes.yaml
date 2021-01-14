@@ -1,0 +1,30 @@
+- id: '1610652795053'
+  name: test
+  entities:
+    media_player.50_sharp_roku_tv:
+      friendly_name: 50" Sharp Roku TV
+      restored: true
+      source_list:
+      - Home
+      - Chromecast
+      - Computer
+      - Disney Plus
+      - Global TV
+      - Google Play Movies & TV
+      - HDMI 1 (ARC)
+      - NHL
+      - Netflix
+      - Plex - Stream for Free
+      - Prime Video
+      - Spotify Music
+      - TED
+      - The Great Courses Plus
+      - Vimeo
+      - YouTube
+      state: unavailable
+      supported_features: 20409
+    remote.50_sharp_roku_tv:
+      friendly_name: 50" Sharp Roku TV
+      restored: true
+      state: unavailable
+      supported_features: 0

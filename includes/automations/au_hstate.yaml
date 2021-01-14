@@ -1,0 +1,87 @@
+
+#######################
+# HOUSE STATE CHANGES #
+#######################
+- alias: "HSTATE - Mode Coming Home"
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.nic_presence, binary_sensor.emma_presence
+      from: 'off'
+      to: 'on'
+    - platform: state
+      entity_id: input_select.nic_status
+      to: 'Just Arrived'
+    - platform: state
+      entity_id: input_select.emma_status
+      to: 'Just Arrived'
+  condition:
+    condition: or
+    conditions:
+    - condition: state
+      entity_id: input_select.house_status
+      state: "Away"
+    - condition: state
+      entity_id: input_select.house_status
+      state: "Vacation"
+  action:
+  - service: input_select.select_option
+    data:
+      entity_id: input_select.house_status
+      option: "Home"
+
+- alias: "HSTATE - Mode Going Away"
+  trigger:
+    - platform: state
+      entity_id: input_select.nic_status
+      to: 'Away'
+    - platform: state
+      entity_id: input_select.emma_status
+      to: 'Away'
+  condition:
+    condition: and
+    conditions:
+    - condition: or
+      conditions:
+      - condition: state
+        entity_id: input_select.nic_status
+        state: 'Away'
+      - condition: state
+        entity_id: input_select.nic_status
+        state: 'Extended Away'
+    - condition: or
+      conditions:
+      - condition: state
+        entity_id: input_select.emma_status
+        state: 'Away'
+      - condition: state
+        entity_id: input_select.emma_status
+        state: 'Extended Away'
+    - condition: state
+      entity_id: input_boolean.guest_mode
+      state: 'off'
+  action:
+  - service: input_select.select_option
+    data:
+      entity_id: input_select.house_status
+      option: "Away"
+
+- alias: "HSTATE - Mode Going On Vacation"
+  trigger:
+    - platform: state
+      entity_id: input_select.nic_status
+      to: 'Extended Away'
+    - platform: state
+      entity_id: input_select.emma_status
+      to: 'Extended Away'
+  condition:
+    - condition: state
+      entity_id: input_select.nic_status
+      state: 'Extended Away'
+    - condition: state
+      entity_id: input_select.emma_status
+      state: 'Extended Away'
+  action:
+  - service: input_select.select_option
+    data:
+      entity_id: input_select.house_status
+      option: "Vacation"

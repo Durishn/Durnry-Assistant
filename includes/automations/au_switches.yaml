@@ -1,0 +1,88 @@
+
+- alias: "OFFICE_DIMSWITCH - Fireplace Toggle"
+  initial_state: true
+  trigger:
+    - platform: state
+      entity_id: sensor.office_dimswitch
+      to: '1_hold'
+    - platform: state
+      entity_id: sensor.office_dimswitch
+      to: '4_hold'
+  action:
+    - service: switch.toggle
+      entity_id: switch.plug_3
+
+- alias: "OFFICE_DIMSWITCH - Fireplace Off"
+  initial_state: true
+  trigger:
+    - platform: state
+      entity_id: sensor.office_dimswitch
+      to: '4_click'
+    - platform: state
+      entity_id: sensor.office_dimswitch
+      to: '4_click_up'
+  action:
+    - service: switch.turn_off
+      entity_id: switch.plug_3
+
+- alias: "OFFICE_DIMSWITCH - Fireplace On"
+  initial_state: true
+  trigger:
+    - platform: state
+      entity_id: sensor.office_dimswitch
+      to: '1_click'
+    - platform: state
+      entity_id: sensor.office_dimswitch
+      to: '1_click_up'
+  action:
+    - service: switch.turn_on
+      entity_id: switch.plug_3
+
+- alias: "BEDROOM_DIMSWITCH - Nightlight"
+  initial_state: true
+  trigger:
+    - platform: state
+      entity_id: sensor.bedroom_dimswitch
+      to: '4_hold'
+  action:
+    - service: light.turn_on
+      data:
+        entity_id: light.nics_light
+        brightness: 50
+
+- alias: "LR_DIMSWITCH - Toggle Switches"
+  initial_state: true
+  trigger:
+    - platform: state
+      entity_id: sensor.livingroom_dimswitch
+      to: '1_hold'
+    - platform: state
+      entity_id: sensor.livingroom_dimswitch
+      to: '4_hold'
+  action:
+    - service: switch.toggle
+      entity_id: switch.floorlamp
+    - service: switch.toggle
+      entity_id: switch.stringlight
+    - service: switch.toggle
+      entity_id: switch.plug_4
+
+- alias: "GUESTS - Set Home when guest"
+  trigger:
+    platform: state
+    entity_id: input_boolean.guest_mode
+    to: 'on'
+  condition:
+    condition: or
+    conditions:
+    - condition: state
+      entity_id: input_select.house_status
+      state: "Away"
+    - condition: state
+      entity_id: input_select.house_status
+      state: "Vacation"
+  action:
+  - service: input_select.select_option
+    data:
+      entity_id: input_select.house_status
+      option: "Home"
