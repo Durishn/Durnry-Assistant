@@ -13,6 +13,8 @@ homeassistant:
   # longitude: !secret longitude
   # unit_system: metric
   customize: !include customize.yaml
+  whitelist_external_dirs:
+    - /config/.storage
 
 browser_mod:
 
@@ -84,6 +86,12 @@ input_boolean:
     name: Guest Mode
     icon: mdi:account-plus
     initial: off
+
+shell_command:
+  llconvert: python /config/tools/lovelace_convert.py
+
+folder_watcher:
+  - folder: /config/.storage
 
 # USER INTERFACE
 ###########

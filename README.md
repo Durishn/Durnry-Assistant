@@ -1,6 +1,8 @@
-# LawrenceAssist (v4.0)
+# Lawrence Assistant (v4.0)
+version: 4.0
+date: 21.01.14
 
-The following repo contains the configuration files for [Home Assistant](https://home-assistant.io/) which runs my Home Automation system. I got fed-up quickly with the lack of platform to connect the growing variety of 'smart' home equipment. I relied heavily on tutorials and code posted by other users to get this all up and running, who know, maybe this might help someone out there out.
+This repository contains the configuration code for 'Lawrence', our virtual butler, built using [Home Assistant](https://home-assistant.io/). I got fed-up quickly with the lack of platform to connect the growing variety of 'smart' home equipment I had, and Lawrence was the solution! The first iteration of Lawrence was born in 2016 on a Raspberry Pi 1 (B) running Hass.IO. Today Lawrence is running within a Docker container on a Synology DS918+.
 
 # Front End Screen Shots:
 ## Home
