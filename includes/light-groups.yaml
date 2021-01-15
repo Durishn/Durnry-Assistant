@@ -35,34 +35,43 @@
 # AREAS
 ##############
 - platform: group
-  name: All Office Lights
-  entities:
-  - light.office
-  - light.fireplace
-
-- platform: group
   name: All Livingroom Lights
   entities:
-  - light.living_room
+  - light.hue_filament_bulb_1
+  - light.lamp
+  - light.entrance_light
+  - light.hall_light
   - light.stringlight
   - light.saltlamp
 
 - platform: group
   name: All Kitchen Lights
   entities:
-  - light.kitchen
+  - light.kitchen_light
+
+- platform: group
+  name: All Office Lights
+  entities:
+  - light.office_light
+  - light.hue_play_1
+  - light.desk_backlight
+  - light.fireplace
+
 
 - platform: group
   name: All Bedroom Lights
   entities:
-  - light.bedroom
+  - light.bedroom_lights
+  - light.nics_light
+  - light.nics_light
 
 - platform: group
   name: All Exterior Lights
   entities:
-  - light.exterior
+  - light.porch_light
+  - light.hue_white_lamp_1
 
 - platform: group
   name: All Upstairs Lights
   entities:
-  - light.upstairs
+  - light.guest_lights

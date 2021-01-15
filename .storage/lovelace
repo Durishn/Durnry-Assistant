@@ -510,14 +510,6 @@
                             "progressBar": true,
                             "title": "Calendar",
                             "type": "custom:atomic-calendar"
-                        },
-                        {
-                            "type": "button",
-                            "name": "Test",
-                            "tap_action": {
-                                "action": "call-service",
-                                "service": "readme.generate"
-                            }
                         }
                     ],
                     "icon": "mdi:home",
@@ -1380,6 +1372,9 @@
                                 {
                                     "entity": "sensor.cpt_ipad_battery_level",
                                     "name": "Cpt. iPad"
+                                },
+                                {
+                                    "entity": "script.lovelace_json2yaml"
                                 }
                             ],
                             "type": "entities"
@@ -1414,6 +1409,41 @@
                             "show_header_toggle": false,
                             "title": "Service Links",
                             "type": "entities"
+                        },
+                        {
+                            "cards": [
+                                {
+                                    "entities": [
+                                        {
+                                            "entity": "sensor.canon_mx530_series"
+                                        }
+                                    ],
+                                    "type": "glance"
+                                },
+                                {
+                                    "entities": [
+                                        {
+                                            "entity": "sensor.canon_mx530_series_black",
+                                            "name": "Black Ink"
+                                        },
+                                        {
+                                            "entity": "sensor.canon_mx530_series_color",
+                                            "name": "Colour Ink"
+                                        }
+                                    ],
+                                    "hours_to_show": 100,
+                                    "icon": "mdi:battery",
+                                    "name": "Battery Levels",
+                                    "points_per_hour": 0.5,
+                                    "show": {
+                                        "icon": false,
+                                        "name": false
+                                    },
+                                    "type": "custom:mini-graph-card"
+                                }
+                            ],
+                            "title": "Printer",
+                            "type": "custom:vertical-stack-in-card"
                         },
                         {
                             "cards": [
@@ -1465,41 +1495,6 @@
                                 }
                             ],
                             "title": "Hue Switches",
-                            "type": "custom:vertical-stack-in-card"
-                        },
-                        {
-                            "cards": [
-                                {
-                                    "entities": [
-                                        {
-                                            "entity": "sensor.canon_mx530_series"
-                                        }
-                                    ],
-                                    "type": "glance"
-                                },
-                                {
-                                    "entities": [
-                                        {
-                                            "entity": "sensor.canon_mx530_series_black",
-                                            "name": "Black Ink"
-                                        },
-                                        {
-                                            "entity": "sensor.canon_mx530_series_color",
-                                            "name": "Colour Ink"
-                                        }
-                                    ],
-                                    "hours_to_show": 100,
-                                    "icon": "mdi:battery",
-                                    "name": "Battery Levels",
-                                    "points_per_hour": 0.5,
-                                    "show": {
-                                        "icon": false,
-                                        "name": false
-                                    },
-                                    "type": "custom:mini-graph-card"
-                                }
-                            ],
-                            "title": "Printer",
                             "type": "custom:vertical-stack-in-card"
                         }
                     ]

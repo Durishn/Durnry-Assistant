@@ -12,15 +12,11 @@ homeassistant:
 
 default_config:
 
-readme:
-  convert_lovelace: true
-# browser_mod:
-
 # COMPONENTS
 ##############
-tts:
-  - platform: google_translate
-    service_name: google_say
+# tts:
+#   - platform: google_translate
+#     service_name: google_say
 
 speedtestdotnet:
   scan_interval:
@@ -86,10 +82,7 @@ input_boolean:
     initial: off
 
 shell_command:
-  llconvert: python /config/tools/lovelace_convert.py
-
-shell_command:
-  convert_lovelace: "python /config/utils/json2yaml.py /config/.storage/lovelace /config/lovelace-ui.yaml"
+  convert_lovelace: python /config/utils/json2yaml.py /config/.storage/lovelace /config/lovelace-ui.yaml
 
 
 folder_watcher:

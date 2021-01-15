@@ -1,3 +1,4 @@
+---
 background: var(--background-image)
 custom_header:
   button_text:
@@ -868,6 +869,12 @@ views:
       type: custom:github-entity-row
     title: Github
     type: entities
+  - cards:
+    - entities:
+      - entity: script.lovelace_json2yaml
+      type: entities
+    title: Scripts
+    type: custom:vertical-stack-in-card
   icon: mdi:server
 - badges: []
   cards:
