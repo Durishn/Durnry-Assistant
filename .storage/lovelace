@@ -1,4 +1,6 @@
 {
+    "version": 1,
+    "key": "lovelace",
     "data": {
         "config": {
             "background": "var(--background-image)",
@@ -196,7 +198,7 @@
                                                 }
                                             ],
                                             "head": {
-                                                "entity": "light.kitchen",
+                                                "entity": "light.all_kitchen_lights",
                                                 "icon": "mdi:fridge-outline",
                                                 "name": "Kitchen",
                                                 "type": "custom:slider-entity-row"
@@ -217,7 +219,6 @@
                                                                 },
                                                                 {
                                                                     "entity": "light.hue_play_1",
-                                                                    "icon": "mdi:monitor",
                                                                     "name": "Monitor",
                                                                     "toggle": true,
                                                                     "type": "custom:slider-entity-row"
@@ -279,8 +280,7 @@
                                                 }
                                             ],
                                             "head": {
-                                                "entity": "light.bedroom_lights",
-                                                "icon": "mdi:bed-king",
+                                                "entity": "light.all_bedroom_lights",
                                                 "name": "Bedroom",
                                                 "type": "custom:slider-entity-row"
                                             },
@@ -307,8 +307,7 @@
                                                 }
                                             ],
                                             "head": {
-                                                "entity": "light.guest_lights",
-                                                "icon": "mdi:stairs",
+                                                "entity": "light.all_upstairs_lights",
                                                 "name": "Upstairs",
                                                 "type": "custom:slider-entity-row"
                                             },
@@ -345,8 +344,7 @@
                                                 }
                                             ],
                                             "head": {
-                                                "entity": "light.exterior",
-                                                "icon": "mdi:tree",
+                                                "entity": "light.all_exterior_lights",
                                                 "name": "Outside",
                                                 "type": "custom:slider-entity-row"
                                             },
@@ -512,6 +510,14 @@
                             "progressBar": true,
                             "title": "Calendar",
                             "type": "custom:atomic-calendar"
+                        },
+                        {
+                            "type": "button",
+                            "name": "Test",
+                            "tap_action": {
+                                "action": "call-service",
+                                "service": "readme.generate"
+                            }
                         }
                     ],
                     "icon": "mdi:home",
@@ -1359,6 +1365,9 @@
                     "icon": "mdi:server"
                 },
                 {
+                    "icon": "mdi:cog",
+                    "title": "Settings",
+                    "badges": [],
                     "cards": [
                         {
                             "entities": [
@@ -1493,13 +1502,9 @@
                             "title": "Printer",
                             "type": "custom:vertical-stack-in-card"
                         }
-                    ],
-                    "icon": "mdi:settings",
-                    "title": "Settings"
+                    ]
                 }
             ]
         }
-    },
-    "key": "lovelace",
-    "version": 1
+    }
 }

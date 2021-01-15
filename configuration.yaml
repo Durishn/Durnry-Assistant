@@ -5,14 +5,16 @@
 # updated: January 2021
 #################################
 
-default_config:
-
 homeassistant:
   customize: !include customize.yaml
   whitelist_external_dirs:
     - /config/.storage
 
-browser_mod:
+default_config:
+
+readme:
+  convert_lovelace: true
+# browser_mod:
 
 # COMPONENTS
 ##############
@@ -26,7 +28,7 @@ speedtestdotnet:
 
 device_tracker:
   - platform: hitron_coda
-    url: 192.168.0.1
+    host: http://192.168.0.1
     username: !secret wifi_user
     password: !secret wifi_pass
     type: rogers
@@ -57,10 +59,13 @@ tplink:
 sensor: !include includes/sensors.yaml
 script: !include includes/scripts.yaml
 automation manual: !include_dir_merge_list includes/automations/
-automation ui: !include ui_includes/automations.yaml
-scene: !include includes/scenes.yaml
+scene manual: !include includes/scenes.yaml
 light: !include includes/light-groups.yaml
 
+# Managed via UI
+####################
+scene ui: !include scenes.yaml
+automation ui: !include automations.yaml
 
 # INPUTS AND BAYESION SENSORS
 ####################
@@ -83,6 +88,10 @@ input_boolean:
 shell_command:
   llconvert: python /config/tools/lovelace_convert.py
 
+shell_command:
+  convert_lovelace: "python /config/utils/json2yaml.py /config/.storage/lovelace /config/lovelace-ui.yaml"
+
+
 folder_watcher:
   - folder: /config/.storage
 
@@ -95,30 +104,6 @@ frontend:
   extra_module_url:
     - /hacsfiles/custom-sidebar/custom-sidebar.js
   themes: !include_dir_merge_named themes
-#map:
-
-logbook:
-  # exclude:
-  #   domains:
-  #     - sensor
-
-  # include:
-  #   entities:
-  #   - sensor.house_status
-  #   - sensor.nic_status
-  #   - sensor.emma_status
-  #   - sensor.guest_status
-  #
-  #   - binary_sensor.bedroom_occupancy
-  #   - binary_sensor.office_occupancy
-  #
-  #   - light.exterior
-  #   - light.living_room
-  #   - light.bedroom
-  #   - light.office
-  #   domains:
-  #     - devices
-  #     - script
 
 history:
   use_include_order: True

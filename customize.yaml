@@ -171,7 +171,7 @@ switch.iphone1_torch:
 #############
 light.bedroom_lights:
   friendly_name: "Bedroom Lights"
-  icon: mdi:bed
+  icon: mdi:ceiling-light
 light.guest_lights:
   icon: mdi:ceiling-light
   friendly_name: "Guest Light"
@@ -185,6 +185,19 @@ light.all_office_lights:
 light.all_livingroom_lights:
   friendly_name: "Livingroom Lights"
   icon: mdi:sofa
+light.all_kitchen_lights:
+  friendly_name: "Kitchen Lights"
+  icon: mdi:fridge-outline
+light.all_bedroom_lights:
+  friendly_name: "Bedroom Lights"
+  icon: mdi:bed-king
+light.all_upstairs_lights:
+  friendly_name: "Upstairs Lights"
+  icon: mdi:stairs
+light.all_exterior_lights:
+  friendly_name: "Exterior Lights"
+  icon: mdi:tree
+
 
 
 # MEDIA DEVICES

@@ -1,11 +1,8 @@
 {
+    "version": 1,
+    "key": "lovelace_resources",
     "data": {
         "items": [
-            {
-                "id": "17a0b0aa6457411c87fd96655c1789f5",
-                "type": "module",
-                "url": "/hacsfiles/custom-header/custom-header.js"
-            },
             {
                 "id": "6470eb8b3c234a379cc22e03c4845772",
                 "type": "module",
@@ -102,7 +99,5 @@
                 "url": "/community_plugin/lovelace-github-entity-row/github-entity-row.js"
             }
         ]
-    },
-    "key": "lovelace_resources",
-    "version": 1
+    }
 }

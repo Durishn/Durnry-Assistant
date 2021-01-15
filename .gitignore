@@ -60,4 +60,3 @@ home-assistant*
 .pip_progress
 
 .storage/*
-!.storage/lovelace*
