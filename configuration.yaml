@@ -1,6 +1,7 @@
 #################################
 # filename: configuration.yaml
 # author: Nic Durish
+<<<<<<< HEAD
 # date: August 2019
 #################################
 homeassistant:
@@ -53,10 +54,41 @@ device_tracker:
     password: !secret wifi_pass
     type: rogers
     
+=======
+# created: August 2019
+# updated: January 2021
+#################################
+
+homeassistant:
+  customize: !include customize.yaml
+  whitelist_external_dirs:
+    - /config/.storage
+
+default_config:
+
+# COMPONENTS
+##############
+# tts:
+#   - platform: google_translate
+#     service_name: google_say
+
+speedtestdotnet:
+  scan_interval:
+    minutes: 5
+
+device_tracker:
+  - platform: hitron_coda
+    host: http://192.168.0.1
+    username: !secret wifi_user
+    password: !secret wifi_pass
+    type: rogers
+
+>>>>>>> NoMoreHassOS
 google:
   client_id: !secret google_cal_id
   client_secret: !secret google_cal_secret
 
+<<<<<<< HEAD
 googlehome:
   devices:
     - host: 192.168.0.25
@@ -124,12 +156,25 @@ notify:
   - name: Emma_notify
     platform: pushbullet
     api_key: !secret pushbullet_emma
+=======
+ecobee:
+  api_key: !secret ecobee_key
+
+hue:
+  bridges:
+    - host: 192.168.0.14
+
+spotify:
+  client_id: !secret spotify_id
+  client_secret: !secret spotify_secret
+>>>>>>> NoMoreHassOS
 
 tplink:
   discovery: true
   switch:
     - host: 192.168.0.20
     - host: 192.168.0.21
+<<<<<<< HEAD
     
 switch:
 #  - platform: command_line
@@ -183,6 +228,24 @@ binary_sensor:
 # INPUTS #
 ##########
 #INPUT SELECT
+=======
+
+# INCLUDES
+####################
+sensor: !include includes/sensors.yaml
+script: !include includes/scripts.yaml
+automation manual: !include_dir_merge_list includes/automations/
+scene manual: !include includes/scenes.yaml
+light: !include includes/light-groups.yaml
+
+# Managed via UI
+####################
+scene ui: !include scenes.yaml
+automation ui: !include automations.yaml
+
+# INPUTS AND BAYESION SENSORS
+####################
+>>>>>>> NoMoreHassOS
 input_select:
   house_status:
     name: House Status
@@ -192,6 +255,7 @@ input_select:
       - Asleep
       - Away
       - Vacation
+<<<<<<< HEAD
       
   nic_status:
     name: Nic
@@ -212,12 +276,16 @@ input_select:
       - Extended Away
       
 #INPUT BOOLEAN
+=======
+
+>>>>>>> NoMoreHassOS
 input_boolean:
   guest_mode:
     name: Guest Mode
     icon: mdi:account-plus
     initial: off
 
+<<<<<<< HEAD
 #INPUT NUMBER/SLIDER
 input_number:
   wakeup_time:
@@ -261,11 +329,31 @@ logbook:
       - devices
       - script
     
+=======
+shell_command:
+  convert_lovelace: python /config/utils/json2yaml.py /config/.storage/lovelace /config/lovelace-ui.yaml
+
+
+folder_watcher:
+  - folder: /config/.storage
+
+# USER INTERFACE
+###########
+lovelace:
+  mode: storage
+
+frontend:
+  extra_module_url:
+    - /hacsfiles/custom-sidebar/custom-sidebar.js
+  themes: !include_dir_merge_named themes
+
+>>>>>>> NoMoreHassOS
 history:
   use_include_order: True
   include:
     entities:
       - sensor.house_status
+<<<<<<< HEAD
       - sensor.nic_status
       - sensor.emma_status
       - sensor.guest_status
@@ -285,12 +373,34 @@ history:
       - sensor.guelph_precip_probability
       - sensor.living_room_humidity
       - sensor.guelph_humidity
+=======
+      - sensor.guest_status
+
+      - person.nic_durish
+      - person.emma_henry
+
+      - sensor.ups_battery_charge
+      - sensor.ups_load
+      - sensor.ups_status
+
+      - sensor.living_room_temperature
+      - sensor.living_room_humidity
+      - sensor.bedroom_temperature
+      - sensor.sensor2_temperature
+      - climate.living_room
+      - sensor.speedtest_download
+      - sensor.speedtest_upload
+      - sensor.plex_durnydrive
+      - weather.lawrence
+      - sensor.weather_temperature
+>>>>>>> NoMoreHassOS
     domains:
       - light
       - switch
       - device
   exclude:
     entities:
+<<<<<<< HEAD
     - light.exterior
     - light.office
     - light.bedroom_1
@@ -307,3 +417,15 @@ group: !include includes/groups.yaml
 scene: !include includes/scenes.yaml
 sensor: !include includes/sensors.yaml
 script: !include includes/scripts.yaml
+=======
+      - light.exterior
+      - light.office
+      - light.bedroom_1
+      - light.bedroom_2
+      - light.living_room
+
+config:
+
+recorder:
+  purge_keep_days: 365
+>>>>>>> NoMoreHassOS

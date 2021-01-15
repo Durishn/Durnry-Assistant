@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ##################
 # FRIENDLY NAMES #
 ##################
@@ -23,6 +24,47 @@ sensor.overall_sleep_time:
   icon: mdi:sleep
   friendly_name: Sleep Schedule
 
+=======
+# USERS
+#############
+
+person.nic_durish:
+  friendly_name: "Nic"
+  entity_picture: "/local/img/profilepics/nic.jfif"
+person.emma_henry:
+  friendly_name: "Emma"
+  entity_picture: "/local/img/profilepics/emma.jpg"
+
+# SCRIPT (SCENES)
+#################
+script.alloff_scene:
+  icon: mdi:power-off
+  friendly_name: "Off"
+script.concentrate_scene:
+  icon: mdi:alarm-light
+  friendly_name: "Focus"
+script.bright_scene:
+  icon: mdi:spotlight
+  friendly_name: "Bright"
+script.warm_scene:
+  icon: mdi:brightness-5
+  friendly_name: "Warm"
+script.relax_scene:
+  friendly_name: "Relax"
+  icon: mdi:fire
+script.dimmed_scene:
+  icon: mdi:white-balance-incandescent
+  friendly_name: "Dim"
+script.bed_scene:
+  icon: mdi:hotel
+  friendly_name: "Bed"
+
+# SENSOR
+#############
+sensor.house_status:
+  icon: mdi:home
+  friendly_name: House
+>>>>>>> NoMoreHassOS
 sensor.device_count:
   icon: mdi:cellphone-link
 sensor.automation_count:
@@ -30,6 +72,7 @@ sensor.automation_count:
 sensor.script_count:
   icon: mdi:script
 sensor.switch_count:
+<<<<<<< HEAD
   icon: mdi:flash
 sensor.light_count:
   icon: mdi:lightbulb
@@ -85,3 +128,179 @@ switch.floorlamp:
   icon: mdi:floor-lamp
   friendly_name: Floor Lamp
 
+=======
+  icon: mdi:power-plug
+sensor.switch_on_count:
+  icon: mdi:power-plug
+  friendly_name: Switches On
+sensor.light_count:
+  icon: mdi:lightbulb
+sensor.light_on_count:
+  icon: mdi:lightbulb-on
+  friendly_name: Lights On
+sensor.speedtest_ping:
+  friendly_name: Ping
+sensor.speedtest_upload:
+  friendly_name: Upload
+sensor.speedtest_download:
+  friendly_name: Download
+# sensor.pi_hole_ads_blocked_today:
+#   icon: mdi:pi-hole
+#   friendly_name: Ads Blocked Today
+# sensor.pi_hole_ads_percentage_blocked_today:
+#   icon: mdi:pi-hole
+#   friendly_name: Block Percentage Today
+# sensor.pi_hole_dns_queries_today:
+#   icon: mdi:pi-hole
+#   friendly_name: DNS Queries Today
+# switch.pihole_switch:
+#   icon: mdi:pi-hole
+#   friendly_name: PiHole
+
+sensor.living_room_humidity:
+  friendly_name: "House Humidity"
+sensor.living_room_temperature:
+  friendly_name: "House Temperature"
+sensor.sensor2_temperature:
+  friendly_name: "Upstairs Temperature"
+sensor.sensor2_humidity:
+  friendly_name: "Upstairs Humidity"
+
+sensor.canon_mx530_series_black:
+  friendly_name: "Canon MX530 Ink (Black)"
+sensor.canon_mx530_series_color:
+  friendly_name: "Canon MX530 Ink (Colour)"
+sensor.canon_mx530_series_status:
+  friendly_name: "Canon MX530 Status"
+
+
+# LIGHTS
+#############
+light.entrance_light:
+  icon: mdi:ceiling-light
+  friendly_name: "Entrance Light"
+light.living_room_light:
+  icon: mdi:ceiling-light
+  friendly_name: "Central Light"
+light.hue_filament_bulb_1:
+  icon: mdi:ceiling-light
+  friendly_name: "Central Light"
+light.lamp:
+  icon: mdi:floor-lamp
+  friendly_name: "Lamp"
+light.hall_light:
+  icon: mdi:ceiling-light
+  friendly_name: "Hall Light"
+light.bedroom:
+  icon: mdi:ceiling-light
+  friendly_name: "Bedroom Light"
+light.nics_light:
+  icon: mdi:lamp
+  friendly_name: "Nic's Light"
+light.emmas_light:
+  icon: mdi:lamp
+  friendly_name: "Emma's Light"
+light.office_light:
+  icon: mdi:ceiling-light
+  friendly_name: "Office Main"
+light.office_lamp:
+  icon: mdi:track-light
+  friendly_name: "Office Lamp"
+light.hue_play_1:
+  icon: mdi:monitor
+  friendly_name: "Monitor Backlight"
+light.desk_backlight:
+  icon: mdi:led-strip
+  friendly_name: "Desk Backlight"
+light.kitchen_light:
+  icon: mdi:ceiling-light
+  friendly_name: "Kitchen Light"
+light.guest_bedroom:
+  icon: mdi:ceiling-light
+  friendly_name: "Guestroom Light"
+light.porch_light:
+  icon: mdi:wall-sconce
+  friendly_name: "Deck Light"
+light.hue_white_lamp_1:
+  icon: mdi:wall-sconce
+  friendly_name: "Front Porch Light"
+
+
+# SWITCHES (& ABSTRACT LIGHTS)
+#############
+switch.stringlight:
+  icon: mdi:led-off
+  friendly_name: "Stringlights"
+light.stringlight:
+  icon: mdi:led-off
+  friendly_name: "Stringlights"
+switch.floorlamp:
+  icon: mdi:lamp
+  friendly_name: "Saltlamp"
+light.floorlamp:
+  icon: mdi:lamp
+  friendly_name: "Saltlamp"
+switch.plug_3:
+  icon: mdi:fire
+  friendly_name: "Fireplace"
+light.plug_3:
+  icon: mdi:fire
+  friendly_name: "Fireplace"
+switch.plug_4:
+  friendly_name: "Coop Power"
+switch.iphone1_torch:
+  icon: mdi:flashlight
+
+
+# LIGHT GROUPS
+#############
+light.bedroom_lights:
+  friendly_name: "Bedroom Lights"
+  icon: mdi:ceiling-light
+light.guest_lights:
+  icon: mdi:ceiling-light
+  friendly_name: "Guest Light"
+light.office_lights:
+  icon: mdi:ceiling-light
+  friendly_name: "Office Light"
+
+light.all_office_lights:
+  friendly_name: "Office Lights"
+  icon: mdi:laptop
+light.all_livingroom_lights:
+  friendly_name: "Livingroom Lights"
+  icon: mdi:sofa
+light.all_kitchen_lights:
+  friendly_name: "Kitchen Lights"
+  icon: mdi:fridge-outline
+light.all_bedroom_lights:
+  friendly_name: "Bedroom Lights"
+  icon: mdi:bed-king
+light.all_upstairs_lights:
+  friendly_name: "Upstairs Lights"
+  icon: mdi:stairs
+light.all_exterior_lights:
+  friendly_name: "Exterior Lights"
+  icon: mdi:tree
+
+
+
+# MEDIA DEVICES
+#############
+media_player.bathroom_speaker:
+  icon: mdi:speaker
+media_player.kitchen_speaker:
+  icon: mdi:speaker
+media_player.livingroom_speaker:
+  icon: mdi:speaker
+media_player.bedroom_speaker:
+  icon: mdi:speaker
+
+
+# MISC
+#############
+remote.50_sharp_roku_tv:
+  friendly_name: "TV Power"
+climate.living_room:
+  friendly_name: "House Climate"
+>>>>>>> NoMoreHassOS

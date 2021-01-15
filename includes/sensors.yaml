@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ###############
 # DATE & TIME #
 ###############
@@ -28,12 +29,57 @@
 #################
 # REST COMMANDS #
 #################    
+=======
+- platform: version
+
+# SIMPLIFIERS
+###############
+- platform: template
+  sensors:
+    house_status:
+      value_template: '{{ states.input_select.house_status.state }}'
+      friendly_name: 'House Status'
+    guest_status:
+      value_template: '{{ states.input_boolean.guest_mode.state }}'
+      friendly_name: 'Guest Mode'
+
+    ups_watts:
+      value_template: '{{ (states("sensor.ups_load") | int) * 4 }} W'
+      icon_template: mdi:flash
+      friendly_name: 'UPS Watts'
+    # local_time:
+    #   value_template: "{{as_timestamp(now()) | timestamp_custom('%-I:%M %p')}}"
+    #   entity_id: sensor.time
+    # local_date:
+    #   value_template: "{{as_timestamp(now()) | timestamp_custom('%A %B %-d')}}"
+    #   entity_id: sensor.date
+
+# - platform: synology_dsm
+#   host: !secret dsm_ip
+#   username: !secret dsm_id
+#   password: !secret dsm_pass
+#   monitored_conditions:
+#     - cpu_total_load
+#     - memory_real_usage
+#     - network_up
+#     - network_down
+#     - disk_status
+#     - volume_size_total
+#     - volume_size_used
+#     - volume_percentage_used
+#     - volume_disk_temp_avg
+
+#################
+# REST COMMANDS #
+#################
+>>>>>>> NoMoreHassOS
 - platform: rest
   resource: https://pypi.python.org/pypi/homeassistant/json
   name: HA upstream
   value_template: '{{ value_json.info.version }}'
   scan_interval: 3600
 
+<<<<<<< HEAD
 ##########
 # HASSIO #
 ##########
@@ -170,3 +216,63 @@
 #      value_template: "{% if states.sensor.brhomealarms.attributes.alarm[0] is defined %}{{ (((states.sensor.brhomealarms.attributes.alarm[0].fire_time / 1000) - as_timestamp(now())) /60) | round(0)}}{% endif %}"
 #      entity_id: sensor.brhomealarms
 #      unit_of_measurement: "min"
+=======
+#################
+# History Stats #
+#################
+- platform: history_stats
+  name: Quarantine meter Nic
+  entity_id: person.nic_durish
+  state: "home"
+  type: ratio
+  duration:
+    days: 7
+  end: "{{ now() }}"
+
+- platform: history_stats
+  name: Quarantine meter Emma
+  entity_id: person.emma_henry
+  state: "home"
+  type: ratio
+  duration:
+    days: 7
+  end: "{{ now() }}"
+
+- platform: history_stats
+  name: Quarantine meter Nic times left
+  entity_id: person.nic_durish
+  state: "home"
+  type: count
+  duration:
+    days: 7
+  end: "{{ now() }}"
+
+- platform: history_stats
+  name: Quarantine meter Emma times left
+  entity_id: person.emma_henry
+  state: "home"
+  type: count
+  duration:
+    days: 7
+  end: "{{ now() }}"
+
+#################
+# Github Stats #
+#################
+- platform: github
+  access_token: !secret hass_sensor_gh_token
+  repositories:
+    - path: "Durishn/durnry-assistant"
+    - path: "Durishn/durishn.github.io"
+
+- platform: steam_online
+  api_key: !secret steam_key
+  accounts:
+    - 76561198119356107
+
+
+- platform: xbox_live
+  api_key: !secret xbox_key
+  xuid:
+    - 2535444147547790
+>>>>>>> NoMoreHassOS

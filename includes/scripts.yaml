@@ -1,3 +1,10 @@
+<<<<<<< HEAD
+=======
+lovelace_json2yaml:
+  sequence:
+    - service: shell_command.convert_lovelace
+
+>>>>>>> NoMoreHassOS
 media_fire:
     alias: "Turn On Fireplace"
     sequence:
@@ -11,6 +18,7 @@ media_fire:
           media_content_type: video/youtube
           media_content_id: "https://www.youtube.com/watch?v=ZY3J3Y_OU0w"
 
+<<<<<<< HEAD
 welcome:
     alias: "Welcome Message"
     sequence:
@@ -124,3 +132,187 @@ cabin_scene:
       entity_id: scene.cabin
   - service: script.turn_on
     entity_id: script.media_fire
+=======
+##################
+# SCENE WRAPPERS #
+##################
+alloff_scene:
+    alias: 'All Off'
+    sequence:
+      - service: switch.turn_off
+        entity_id: switch.floorlamp
+      - service: switch.turn_off
+        entity_id: switch.stringlight
+      - service: light.turn_off
+        entity_id: all
+      - service: media_player.turn_off
+        entity_id: all
+
+concentrate_scene:
+    alias: 'Concentrate'
+    sequence:
+      - service: switch.turn_on
+        data:
+          entity_id: switch.floorlamp
+      - service: switch.turn_on
+        data:
+          entity_id: switch.stringlight
+      - service: hue.hue_activate_scene
+        data:
+          group_name: "Living Room"
+          scene_name: "Concentrate"
+      - service: hue.hue_activate_scene
+        data:
+          group_name: "Bedroom"
+          scene_name: "Concentrate"
+      - service: hue.hue_activate_scene
+        data:
+          group_name: "Kitchen"
+          scene_name: "Concentrate"
+      - service: hue.hue_activate_scene
+        data:
+          group_name: "Office"
+          scene_name: "Concentrate"
+
+bright_scene:
+    alias: 'Bright'
+    sequence:
+      - service: switch.turn_on
+        data:
+          entity_id: switch.floorlamp
+      - service: switch.turn_on
+        data:
+          entity_id: switch.stringlight
+      - service: switch.turn_on
+        data:
+          entity_id: switch.plug_4
+      - service: hue.hue_activate_scene
+        data:
+          group_name: "Living Room"
+          scene_name: "Bright"
+      - service: hue.hue_activate_scene
+        data:
+          group_name: "Bedroom"
+          scene_name: "Bright"
+      - service: hue.hue_activate_scene
+        data:
+          group_name: "Kitchen"
+          scene_name: "Bright"
+      - service: hue.hue_activate_scene
+        data:
+          group_name: "Office"
+          scene_name: "Bright"
+
+warm_scene:
+    alias: 'Warm'
+    sequence:
+      - service: switch.turn_on
+        data:
+          entity_id: switch.floorlamp
+      - service: switch.turn_on
+        data:
+          entity_id: switch.stringlight
+      - service: switch.turn_on
+        data:
+          entity_id: switch.plug_4
+      - service: hue.hue_activate_scene
+        data:
+          group_name: "Living Room"
+          scene_name: "Warm"
+      - service: hue.hue_activate_scene
+        data:
+          group_name: "Bedroom"
+          scene_name: "Warm"
+      - service: hue.hue_activate_scene
+        data:
+          group_name: "Kitchen"
+          scene_name: "Warm"
+      - service: hue.hue_activate_scene
+        data:
+          group_name: "Office"
+          scene_name: "Warm"
+
+relax_scene:
+    alias: 'Relax'
+    sequence:
+      - service: switch.turn_on
+        data:
+          entity_id: switch.floorlamp
+      - service: switch.turn_on
+        data:
+          entity_id: switch.stringlight
+      - service: switch.turn_on
+        data:
+          entity_id: switch.plug_4
+      - service: hue.hue_activate_scene
+        data:
+          group_name: "Living Room"
+          scene_name: "Relax"
+      - service: hue.hue_activate_scene
+        data:
+          group_name: "Bedroom"
+          scene_name: "Relax"
+      - service: hue.hue_activate_scene
+        data:
+          group_name: "Kitchen"
+          scene_name: "Relax"
+      - service: hue.hue_activate_scene
+        data:
+          group_name: "Office"
+          scene_name: "Relax"
+
+dimmed_scene:
+    alias: 'Dimmed'
+    sequence:
+      - service: switch.turn_on
+        data:
+          entity_id: switch.floorlamp
+      - service: switch.turn_off
+        data:
+          entity_id: switch.stringlight
+      - service: switch.turn_on
+        data:
+          entity_id: switch.plug_4
+      - service: hue.hue_activate_scene
+        data:
+          group_name: "Living Room"
+          scene_name: "Dimmed"
+      - service: hue.hue_activate_scene
+        data:
+          group_name: "Bedroom"
+          scene_name: "Dimmed"
+      - service: hue.hue_activate_scene
+        data:
+          group_name: "Kitchen"
+          scene_name: "Dimmed"
+      - service: hue.hue_activate_scene
+        data:
+          group_name: "Office"
+          scene_name: "Dimmed"
+
+bed_scene:
+    alias: 'Movie'
+    sequence:
+      - service: switch.turn_off
+        data:
+          entity_id: switch.floorlamp
+      - service: switch.turn_off
+        data:
+          entity_id: switch.floorlamp
+      - service: switch.turn_off
+        data:
+          entity_id: switch.stringlight
+      - service: light.turn_off
+        data:
+          entity_id: light.porch_light
+      - service: light.turn_off
+        data:
+          entity_id: light.living_room
+      - service: light.turn_off
+        data:
+          entity_id: light.kitchen
+      - service: hue.hue_activate_scene
+        data:
+          group_name: "Bedroom"
+          scene_name: "Dimmed"
+>>>>>>> NoMoreHassOS

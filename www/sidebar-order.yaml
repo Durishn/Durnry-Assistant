@@ -1,0 +1,22 @@
+order:
+  - item: overview
+    hide: false
+  - item: calendar
+  - item: history
+  - item: logbook
+    user: nic durish
+  - item: community store
+    bottom: true
+    user: nic durish
+  - item: terminal
+    bottom: true
+    user: nic durish
+  - item: developer tools
+    bottom: true
+    user: nic durish
+  - item: supervisor
+    bottom: true
+    user: nic durish
+  - item: configuration
+    bottom: true
+    user: nic durish

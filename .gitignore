@@ -39,6 +39,14 @@ Thumbs.db
 
 # Project Specific Files #
 ##########################
+<<<<<<< HEAD
+=======
+*Archived
+!Archived/
+custom_components/
+www/community/
+config/
+>>>>>>> NoMoreHassOS
 tts/
 deps/
 known_devices.yaml
@@ -46,9 +54,19 @@ secrets.yaml
 .cloud/
 .google.token
 .HA_VERSION
+<<<<<<< HEAD
 .storage/
+=======
+>>>>>>> NoMoreHassOS
 .uuid
 ecobee.conf
 google_calendars.yaml
 home-assistant*
 *.conf
+<<<<<<< HEAD
+=======
+.translations
+.pip_progress
+
+.storage/*
+>>>>>>> NoMoreHassOS

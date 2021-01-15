@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 
 # Durnry Assistant
 version: 3.0
@@ -6,6 +7,13 @@ hardware: Raspberry Pi 2 B
 software: Hass.io
 
 The following repo contains the configuration files for [Home Assistant](https://home-assistant.io/) which run my Home Automation system. I got fed-up quickly with the lack of platform to connect the growing variety of 'smart' home equipment. I relied heavily on tutorials and code posted by other users to get this all up and running, who know, maybe this might help someone out there out.
+=======
+# Lawrence Assistant (v4.0)
+version: 4.0
+date: 21.01.14
+
+This repository contains the configuration code for 'Lawrence', our virtual butler, built using [Home Assistant](https://home-assistant.io/). I got fed-up quickly with the lack of platform to connect the growing variety of 'smart' home equipment I had, and Lawrence was the solution! The first iteration of Lawrence was born in 2016 on a Raspberry Pi 1 (B) running Hass.IO. Today Lawrence is running within a Docker container on a Synology DS918+.
+>>>>>>> NoMoreHassOS
 
 # Front End Screen Shots:
 ## Home
@@ -72,5 +80,14 @@ The following repo contains the configuration files for [Home Assistant](https:/
 - 3 Coloured Hue Lightbulbs & Hub
 - Ecobee Thermostat 2.0 with 2 sensors
 
+<<<<<<< HEAD
+=======
+#Inspirations
+
+- https://github.com/matt8707/hass-config
+- https://github.com/basnijholt/home-assistant-config/
+
+
+>>>>>>> NoMoreHassOS
 # Final Notes
 Security: I am far from a security expert, however, I have taken some important steps and considerations into account in this project and in my cyber-life in general. Make sure you are only serving your assistant over https:// and using a secure password with a limited number of attempts and blocking IPs. Anything that doesn't need to be connected to the internet isn't. Keep systems seperate with tight permissions and seperate users. Test your security, and test it often.

@@ -1,0 +1,165 @@
+{
+    "data": {
+        "config": {
+            "custom_header": {
+                "button_text": {
+                    "options": "{{ hours12 }}:{{ minutesLZ }}"
+                },
+                "compact_mode": true
+            },
+            "views": [
+                {
+                    "badges": [],
+                    "cards": [
+                        {
+                            "cards": [
+                                {
+                                    "entities": [
+                                        "sensor.speedtest_download",
+                                        "sensor.speedtest_upload"
+                                    ],
+                                    "hours_to_show": 6,
+                                    "icon": "mdi:access-point-network",
+                                    "name": "Network",
+                                    "points_per_hour": 8,
+                                    "type": "custom:mini-graph-card"
+                                },
+                                {
+                                    "entities": [
+                                        "sensor.speedtest_ping",
+                                        "sensor.speedtest_download",
+                                        "sensor.speedtest_upload"
+                                    ],
+                                    "type": "glance"
+                                }
+                            ],
+                            "type": "custom:vertical-stack-in-card"
+                        },
+                        {
+                            "cards": [
+                                {
+                                    "entities": [
+                                        {
+                                            "entity": "sensor.durnydrive_cpu_load_total",
+                                            "name": "CPU"
+                                        },
+                                        {
+                                            "entity": "sensor.durnydrive_memory_usage_real",
+                                            "name": "RAM"
+                                        },
+                                        {
+                                            "entity": "sensor.durnydrive_volume_1_volume_used",
+                                            "name": "Storage"
+                                        }
+                                    ],
+                                    "hours_to_show": 6,
+                                    "icon": "mdi:access-point-network",
+                                    "name": "Synology",
+                                    "points_per_hour": 8,
+                                    "type": "custom:mini-graph-card"
+                                },
+                                {
+                                    "entities": [
+                                        {
+                                            "entity": "sensor.durnydrive_volume_1_status",
+                                            "name": "Status"
+                                        },
+                                        {
+                                            "entity": "binary_sensor.durnydrive_security_status",
+                                            "name": "Security"
+                                        },
+                                        {
+                                            "entity": "sensor.durnydrive_volume_1_total_size",
+                                            "name": "Disk Size"
+                                        },
+                                        {
+                                            "entity": "sensor.durnydrive_network_up",
+                                            "name": "Upload"
+                                        },
+                                        {
+                                            "entity": "sensor.durnydrive_network_down",
+                                            "name": "Download"
+                                        }
+                                    ],
+                                    "type": "glance"
+                                }
+                            ],
+                            "type": "custom:vertical-stack-in-card"
+                        },
+                        {
+                            "cards": [
+                                {
+                                    "entities": [
+                                        {
+                                            "entity": "sensor.ups_load",
+                                            "name": "Load"
+                                        },
+                                        {
+                                            "entity": "sensor.ups_battery_charge",
+                                            "name": "Battery Charge"
+                                        }
+                                    ],
+                                    "hours_to_show": 6,
+                                    "icon": "mdi:access-point-network",
+                                    "name": "UPS",
+                                    "points_per_hour": 8,
+                                    "type": "custom:mini-graph-card"
+                                },
+                                {
+                                    "entities": [
+                                        {
+                                            "entity": "sensor.ups_status",
+                                            "name": "Status"
+                                        },
+                                        {
+                                            "entity": "sensor.ups_battery_runtime",
+                                            "name": "Battery"
+                                        },
+                                        {
+                                            "entity": "sensor.ups_watts",
+                                            "name": "Output W"
+                                        },
+                                        {
+                                            "entity": "sensor.ups_input_voltage",
+                                            "name": "Input V"
+                                        },
+                                        {
+                                            "entity": "sensor.ups_output_voltage",
+                                            "name": "Output V"
+                                        }
+                                    ],
+                                    "type": "glance"
+                                }
+                            ],
+                            "type": "custom:vertical-stack-in-card"
+                        }
+                    ],
+                    "icon": "mdi:server"
+                },
+                {
+                    "badges": [],
+                    "cards": [
+                        {
+                            "entities": [
+                                {
+                                    "entity": "sensor.plex_durnydrive"
+                                },
+                                {
+                                    "entity": "sensor.hacs"
+                                },
+                                {
+                                    "entity": "sensor.ha_upstream"
+                                }
+                            ],
+                            "title": "ServerRack - Software",
+                            "type": "entities"
+                        }
+                    ],
+                    "icon": "mdi:robot"
+                }
+            ]
+        }
+    },
+    "key": "lovelace.ui_systems",
+    "version": 1
+}

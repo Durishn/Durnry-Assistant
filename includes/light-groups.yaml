@@ -1,0 +1,77 @@
+# SWITHCES TO LIGHTS
+##############
+- platform: switch
+  name: Stringlight
+  entity_id: switch.stringlight
+
+- platform: switch
+  name: Saltlamp
+  entity_id: switch.saltlamp
+
+- platform: switch
+  name: Fireplace
+  entity_id: switch.plug_3
+
+# MULTIFIXTURES
+##############
+- platform: group
+  name: Office Lights
+  entities:
+  - light.office_light
+  - light.office_lamp
+
+- platform: group
+  name: Bedroom Lights
+  entities:
+  - light.bedroom_1
+  - light.bedroom_2
+
+- platform: group
+  name: Guest Lights
+  entities:
+  - light.guest_bedroom_1
+  - light.guest_bedroom_2
+
+# AREAS
+##############
+- platform: group
+  name: All Livingroom Lights
+  entities:
+  - light.hue_filament_bulb_1
+  - light.lamp
+  - light.entrance_light
+  - light.hall_light
+  - light.stringlight
+  - light.saltlamp
+
+- platform: group
+  name: All Kitchen Lights
+  entities:
+  - light.kitchen_light
+
+- platform: group
+  name: All Office Lights
+  entities:
+  - light.office_light
+  - light.hue_play_1
+  - light.desk_backlight
+  - light.fireplace
+
+
+- platform: group
+  name: All Bedroom Lights
+  entities:
+  - light.bedroom_lights
+  - light.nics_light
+  - light.nics_light
+
+- platform: group
+  name: All Exterior Lights
+  entities:
+  - light.porch_light
+  - light.hue_white_lamp_1
+
+- platform: group
+  name: All Upstairs Lights
+  entities:
+  - light.guest_lights
