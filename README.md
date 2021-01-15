@@ -7,27 +7,32 @@ This repository contains the configuration code for 'Lawrence', our virtual butl
 # Front End Screen Shots:
 ## Home
 <p align="center">
-  <img src="https://raw.githubusercontent.com/Durishn/Durnry-Assistant/master/www/img/home.png">
+  <img src="https://raw.githubusercontent.com/Durishn/Durnry-Assistant/master/www/img/docs/1.png">
 </p>
 
-## History
+## Floorplan (Styles to be updated)
 <p align="center">
-  <img src="https://raw.githubusercontent.com/Durishn/Durnry-Assistant/master/www/img/hist.png">
+  <img src="https://raw.githubusercontent.com/Durishn/Durnry-Assistant/master/www/img//docs/2.png">
 </p>
 
-## Rooms
+## Profiles
 <p align="center">
-  <img src="https://raw.githubusercontent.com/Durishn/Durnry-Assistant/master/www/img/rooms.png">
+  <img src="https://raw.githubusercontent.com/Durishn/Durnry-Assistant/master/www/img//docs/3.png">
 </p>
 
 ## Network
 <p align="center">
-  <img src="https://raw.githubusercontent.com/Durishn/Durnry-Assistant/master/www/img/net.png">
+  <img src="https://raw.githubusercontent.com/Durishn/Durnry-Assistant/master/www/img//docs/4.png">
 </p>
 
 ## Setting
 <p align="center">
-  <img src="https://raw.githubusercontent.com/Durishn/Durnry-Assistant/master/www/img/sett.png">
+  <img src="https://raw.githubusercontent.com/Durishn/Durnry-Assistant/master/www/img//docs/5.png">
+</p>
+
+## Cameras (Deprecated)
+<p align="center">
+  <img src="https://raw.githubusercontent.com/Durishn/Durnry-Assistant/master/www/img//docs/6.png">
 </p>
 
 # Front-End - Sensors and Controllers:
