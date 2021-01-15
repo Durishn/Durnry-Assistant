@@ -55,7 +55,7 @@ This repository contains the configuration code for 'Lawrence', our virtual butl
 # Automations
 - Porch light on at sunset & off at night
 - Office light off when no motion (i always forget to turn off my office)
-- Unlock computer(script outside of HA) and turn on office lights when I scan the NFC chip implanted in my hand on the reader in my desk
+- Unlock computer(script outside of HA) and turn on office lights when I scan the NFC chip implanted in my hand on the reader in my desk [FAQ](https://www.youtube.com/watch?v=5tCyVfcFOG0)
 - All Off when house 'away'
 - 'Bright' on arrival
 - Nightlight if sense motion at night
