@@ -48,24 +48,9 @@
 <details open="open">
   <summary><h2 style="display: inline-block">Table of Contents</h2></summary>
   <ol>
-    <li>
-      <a href="#about-the-project">About The Project</a>
-      <ul>
-        <li><a href="#built-with">Built With</a></li>
-      </ul>
-    </li>
-    <li><a href="#overview">Overview</a>
-      <ul>
-        <li><a href="#front-end-screenshots"Front-End Screenshots</a></li>
-      </ul>
-    </li>
-    <li>
-      <a href="#getting-started">Getting Started</a>
-      <ul>
-        <li><a href="#prerequisites">Prerequisites</a></li>
-        <li><a href="#installation">Installation</a></li>
-      </ul>
-    </li>
+    <li><a href="#about-the-project">About The Project</a></li>
+    <li><a href="#overview">Overview</a></li>
+    <li><a href="#getting-started">Getting Started</a></li>
     <li><a href="#roadmap">Roadmap</a></li>
     <li><a href="#contributing">Contributing</a></li>
     <li><a href="#authors">Authors</a></li>
@@ -85,7 +70,7 @@ This repository contains the configuration code for 'Lawrence', my virtual butle
 
 ### Built With
 
-This project was built with the use of the following frameworks. For add-ons, plugins and resources, please see the acknowledgements section
+This project was built with the use of the following frameworks.
 * [Home Assistant](https://www.home-assistant.io/)
 * [Docker](https://docker.com)
 * [HA Supervisor](https://github.com/home-assistant/supervisor)
